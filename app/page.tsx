@@ -27,7 +27,7 @@ export default function HomePage() {
           <Stack gap="4" w="full">
             <Field.Root>
               <Field.Label>First Name</Field.Label>
-              <Input type="color" />
+              <Input />
             </Field.Root>
             <Field.Root>
               <Field.Label>Last Name</Field.Label>
