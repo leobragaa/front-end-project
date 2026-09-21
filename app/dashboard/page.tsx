@@ -1,9 +1,41 @@
-import { Box, Text } from "@chakra-ui/react";
+import { Button, CloseButton, Drawer, Portal } from "@chakra-ui/react";
+import { useRouter } from "next/router";
 
 export default function DahsboardPage() {
+  const router = useRouter();
+
   return (
-    <Box>
-      <Text>Login realizado com sucesso !!!!</Text>
-    </Box>
+    <Drawer.Root>
+      <Drawer.Trigger asChild>
+        <Button variant="outline" size="sm">
+          Open Drawer
+        </Button>
+      </Drawer.Trigger>
+      <Portal>
+        <Drawer.Backdrop />
+        <Drawer.Positioner>
+          <Drawer.Content>
+            <Drawer.Header>
+              <Drawer.Title>Drawer Title</Drawer.Title>
+            </Drawer.Header>
+            <Drawer.Body>
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
+                eiusmod tempor incididunt ut labore et dolore magna aliqua.
+              </p>
+            </Drawer.Body>
+            <Drawer.Footer>
+              <Button variant="outline" type="button">
+                {" "}
+                Sair
+              </Button>
+            </Drawer.Footer>
+            <Drawer.CloseTrigger asChild>
+              <CloseButton size="sm" />
+            </Drawer.CloseTrigger>
+          </Drawer.Content>
+        </Drawer.Positioner>
+      </Portal>
+    </Drawer.Root>
   );
 }
