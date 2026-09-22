@@ -7,7 +7,7 @@ import {
   Button,
   Card,
   Center,
-  CheckboxCard,
+  Checkbox,
   Field,
   Flex,
   Grid,
@@ -19,6 +19,7 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { Formik } from "formik";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 export default function HomePage() {
@@ -128,14 +129,15 @@ export default function HomePage() {
                       />
                       {errors.senha && touched.senha && errors.senha}
                     </Field.Root>
+                    <Field.Root></Field.Root>
                   </Stack>
-                  <CheckboxCard.Root maxW="240px" marginTop="10px">
-                    <CheckboxCard.HiddenInput />
-                    <CheckboxCard.Control>
-                      <CheckboxCard.Indicator />
-                      <CheckboxCard.Label>Aceito os Termos</CheckboxCard.Label>
-                    </CheckboxCard.Control>
-                  </CheckboxCard.Root>
+                  <Checkbox.Root maxW="240px" marginTop="10px">
+                    <Checkbox.HiddenInput />
+                    <Checkbox.Control />
+                    <Checkbox.Label>
+                      <Link href={"#"}>Aceito os Termos</Link>
+                    </Checkbox.Label>
+                  </Checkbox.Root>
                 </Card.Body>
                 <Card.Footer justifyContent="center">
                   <Button
