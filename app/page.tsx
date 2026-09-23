@@ -24,6 +24,7 @@ import { useRouter } from "next/navigation";
 
 export default function HomePage() {
   const router = useRouter();
+
   return (
     <Formik
       initialValues={{ email: "", senha: "" }}
@@ -68,7 +69,7 @@ export default function HomePage() {
                   />
                 </Box>
                 <Flex marginTop={"50px"}>
-                  <Text fontFamily="sans-serif" fontSize="50px">
+                  <Text fontFamily="var(--font-)" fontSize="50px">
                     Nutri
                   </Text>
                   <Text fontFamily="sans-serif" fontSize="50px">
