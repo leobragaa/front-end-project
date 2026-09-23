@@ -35,7 +35,7 @@ export default function HomePage() {
           console.log("Dentro do form", usuario);
           router.push("/dashboard");
         } catch (error) {
-          console.log("Erro em logar");
+          console.log("Erro em logar", error);
         }
         setSubmitting(false);
       }}
@@ -54,15 +54,12 @@ export default function HomePage() {
           {/* <Center> */}
           <Grid
             flexDirection={["column", "column", "row", "row"]}
-            templateColumns="repeat(5, 1fr)"
+            templateColumns="repeat(8, 1fr)"
             height={"100vh"}
+            w={""}
             gap="3"
           >
-            <GridItem
-              colSpan={[5, 5, 3, 3]}
-              background="green.900"
-              flexDirection="column"
-            >
+            <GridItem colSpan={[8, 8, 5, 5]} background="green.900">
               <Flex direction={["column"]} alignItems={"center"}>
                 <Box marginTop={"20px"}>
                   <Image
@@ -87,8 +84,8 @@ export default function HomePage() {
               </Flex>
             </GridItem>
 
-            <GridItem colSpan={[5, 5, 2, 2]} marginLeft={"5"} marginRight={"5"}>
-              <Card.Root marginTop={["0px", "0px", "24", "24"]}>
+            <GridItem colSpan={[8, 8, 3, 3]} marginLeft={"5"} marginRight={"5"}>
+              <Card.Root marginTop={["0px", "0px", "36", "36"]}>
                 <Card.Header alignItems="center">
                   <Image
                     justifyContent="center"
