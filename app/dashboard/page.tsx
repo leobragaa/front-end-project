@@ -1,6 +1,10 @@
 import SideBar from "@/components/ui/sidebar";
-import { SimpleGrid } from "@chakra-ui/react";
+import { Grid } from "@chakra-ui/react";
 
 export default function DahsboardPage() {
-  return <SideBar />;
+  return (
+    <Grid>
+      <SideBar />
+    </Grid>
+  );
 }
