@@ -11,23 +11,19 @@ interface UsuarioCadastro {
   tipousuario: string;
 }
 
-export async function cadastrarUsuario(
+export async function cadastroUsuario(
   nome: string,
-  cfn: string,
   email: string,
   senha: string,
   telefone: string,
-  datanascimento: Date,
   tipousuario: string,
 ): Promise<UsuarioCadastro> {
   console.log(email, senha);
-  const resposta = await api.post("/cadastro", {
+  const resposta = await api.post("/auth/creatingUsuario", {
     nome,
-    cfn,
     email,
     senha,
     telefone,
-    datanascimento,
     tipousuario,
   });
 

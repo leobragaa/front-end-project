@@ -85,7 +85,7 @@ export default function HomePage() {
             </GridItem>
 
             <GridItem colSpan={[8, 8, 3, 3]} marginLeft={"5"} marginRight={"5"}>
-              <Card.Root marginTop={["0px", "0px", "36", "36"]}>
+              <Card.Root marginTop={["0px", "0px", "28", "28"]}>
                 <Card.Header alignItems="center">
                   <Image
                     justifyContent="center"
@@ -132,8 +132,8 @@ export default function HomePage() {
                   <Checkbox.Root maxW="240px" marginTop="10px">
                     <Checkbox.HiddenInput />
                     <Checkbox.Control />
-                    <Checkbox.Label>
-                      <Link href={"#"}>Aceito os Termos</Link>
+                    <Checkbox.Label fontSize={"sm"}>
+                      Aceito os Termos <Link href={"#"}>de Uso do Sistema</Link>
                     </Checkbox.Label>
                   </Checkbox.Root>
                 </Card.Body>
@@ -149,6 +149,13 @@ export default function HomePage() {
                   >
                     <Strong> ENTRAR </Strong>
                   </Button>
+                </Card.Footer>
+                <Card.Footer>
+                  <Text fontSize={"sm"}>
+                    Não possui Cadastro?
+                    <Link href={"/cadastro"}> Crie sua Conta </Link>
+                    Prossional
+                  </Text>
                 </Card.Footer>
               </Card.Root>
             </GridItem>

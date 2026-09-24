@@ -1,20 +1,18 @@
 "use client";
-import { cadastrarUsuario } from "@/actions/cadastrar";
+import { cadastroUsuario } from "@/actions/creatingUsuario";
 import { PasswordInput } from "@/components/ui/password-input";
 import {
   Card,
-  DateInput,
   Field,
   FieldLabel,
   Flex,
   Image,
   Input,
-  NativeSelect,
   Grid,
   GridItem,
   Button,
   Link,
-  Stack,
+  HStack,
 } from "@chakra-ui/react";
 
 import { Formik } from "formik";
@@ -26,22 +24,18 @@ export default function CadastroPage() {
     <Formik
       initialValues={{
         nome: "",
-        cfn: "",
         email: "",
         senha: "",
         telefone: "",
-        datanascimento: new Date(),
         tipousuario: "",
       }}
       onSubmit={async (values, { setSubmitting }) => {
         try {
-          const usuario = await cadastrarUsuario(
+          const usuario = await cadastroUsuario(
             values.nome,
-            values.cfn,
             values.email,
             values.senha,
             values.telefone,
-            values.datanascimento,
             values.tipousuario,
           );
           console.log("Dentro do Form para cadastro de usuario", usuario);
@@ -56,7 +50,7 @@ export default function CadastroPage() {
         <form onSubmit={handleSubmit}>
           <Grid
             justifyContent={"center"}
-            marginTop={"20"}
+            marginTop={"2"}
             height={"100vh"}
             flexDirection={["column", "colum", "row", "row"]}
             templateColumns="repeat(5, 1fr)"
@@ -72,33 +66,18 @@ export default function CadastroPage() {
                       fit="cover"
                       alt="Logo do topo NutriFlow"
                     />
-                    <Card.Title> Cadastre sua Conta </Card.Title>
+                    <Card.Title> Cadastre sua Conta Profissional </Card.Title>
                   </Card.Header>
                   <Card.Body gap={"5"}>
-                    <NativeSelect.Root>
-                      <NativeSelect.Field placeholder="">
-                        <option
-                          value={values.tipousuario}
-                          onChange={handleChange}
-                          onBlur={handleBlur}
-                        >
-                          Nutricionista
-                        </option>
-                        <option
-                          value={values.tipousuario}
-                          onChange={handleChange}
-                          onBlur={handleBlur}
-                        >
-                          Paciente
-                        </option>
-                      </NativeSelect.Field>
-                      <NativeSelect.Indicator />
-                    </NativeSelect.Root>
                     <Field.Root>
-                      <FieldLabel>Nome</FieldLabel>
+                      <FieldLabel>Nome Completo</FieldLabel>
                       <Input
-                        placeholder="Informe seu Nome"
+                        type="text"
+                        name="nome"
+                        placeholder="Leonardo Braga"
                         value={values.nome}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
                         required
                       />
                     </Field.Root>
@@ -107,39 +86,43 @@ export default function CadastroPage() {
                         Email <Field.RequiredIndicator />
                       </FieldLabel>
                       <Input
-                        placeholder="me@email.com"
+                        type="email"
+                        name="email"
+                        placeholder="leo@email.com"
                         value={values.email}
                         onChange={handleChange}
                         onBlur={handleBlur}
                         required
                       />
                     </Field.Root>
-                    <DateInput.Root>
-                      <DateInput.Label>Data de Nascimento</DateInput.Label>
-                      <DateInput.Control>
-                        <DateInput.Segments
-                          defaultValue={
-                            values.datanascimento instanceof Date
-                              ? values.datanascimento
-                                  .toISOString()
-                                  .split("T")[0]
-                              : values.datanascimento
-                          }
+                    <HStack>
+                      <Field.Root>
+                        <FieldLabel>Senha</FieldLabel>
+                        <PasswordInput
+                          type="password"
+                          name="senha"
+                          placeholder="********"
+                          value={values.senha}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
                         />
-                      </DateInput.Control>
-                    </DateInput.Root>
-                    <Field.Root>
-                      <FieldLabel>Senha</FieldLabel>
-                      <PasswordInput
-                        placeholder="°°°°°°°°°°°°"
-                        value={values.senha}
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                      />
-                    </Field.Root>
+                      </Field.Root>
+                      {/* <Field.Root>
+                        <FieldLabel>Confirmar Senha</FieldLabel>
+                        <PasswordInput
+                          type="confirmSenha"
+                          name="confirmaSenha"
+                          placeholder="********"
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                        />
+                      </Field.Root> */}
+                    </HStack>
                     <Field.Root>
                       <FieldLabel>Telefone</FieldLabel>
                       <Input
+                        type="text"
+                        name="telefone"
                         placeholder="(99) 99999-9999"
                         value={values.telefone}
                         onChange={handleChange}
@@ -147,19 +130,7 @@ export default function CadastroPage() {
                         required
                       />
                     </Field.Root>
-                    <Field.Root>
-                      <FieldLabel>CFN</FieldLabel>
-                      <Input placeholder="1234" value={values.cfn} required />
-                    </Field.Root>
                   </Card.Body>
-
-                  <Link
-                    variant={"underline"}
-                    justifyContent={"center"}
-                    href="/"
-                  >
-                    Realize o Login
-                  </Link>
 
                   <Card.Footer justifyContent={"center"}>
                     <Button
@@ -173,6 +144,16 @@ export default function CadastroPage() {
                     >
                       <strong> CADASTRAR </strong>
                     </Button>
+                  </Card.Footer>
+                  <Card.Footer>
+                    <Field.Root>
+                      <FieldLabel>
+                        Já possui Cadastro?
+                        <Link variant={"underline"} href="/">
+                          Realize o Login
+                        </Link>
+                      </FieldLabel>
+                    </Field.Root>
                   </Card.Footer>
                 </Card.Root>
               </Flex>
