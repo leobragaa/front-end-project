@@ -1,5 +1,5 @@
 "use client";
-import { cadastroUsuario } from "@/actions/creatingUsuario";
+import { cadastroUsuario } from "@/actions/cadastro";
 import { PasswordInput } from "@/components/ui/password-input";
 import {
   Card,
@@ -31,15 +31,9 @@ export default function CadastroPage() {
       }}
       onSubmit={async (values, { setSubmitting }) => {
         try {
-          const usuario = await cadastroUsuario(
-            values.nome,
-            values.email,
-            values.senha,
-            values.telefone,
-            values.tipousuario,
-          );
+          const usuario = await cadastroUsuario(values);
           console.log("Dentro do Form para cadastro de usuario", usuario);
-          router.push("/login");
+          router.push("/");
         } catch (error) {
           console.log("Erro em Cadastrar", error);
         }
