@@ -9,7 +9,7 @@ import {
   Stack,
   Text,
 } from "@chakra-ui/react";
-import { Josefin_Sans } from "next/font/google";
+import Link from "next/link";
 export default function SideBar() {
   return (
     <Flex as={"nav"} direction={"column"} h={"100vh"}>
@@ -29,9 +29,11 @@ export default function SideBar() {
           </Button>
         </Box>
         <Box>
-          <Button variant={"ghost"} w="100%" justifyContent={"flex-start"}>
-            Paciente
-          </Button>
+          <Link href={"/paciente"}>
+            <Button variant={"ghost"} w="100%" justifyContent={"flex-start"}>
+              Paciente
+            </Button>
+          </Link>
         </Box>
         <Box>
           <Button variant={"ghost"} w="100%" justifyContent={"flex-start"}>
