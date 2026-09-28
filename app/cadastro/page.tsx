@@ -13,6 +13,7 @@ import {
   Button,
   Link,
   HStack,
+  Text,
 } from "@chakra-ui/react";
 
 import { Formik } from "formik";
@@ -99,6 +100,7 @@ export default function CadastroPage() {
                           value={values.senha}
                           onChange={handleChange}
                           onBlur={handleBlur}
+                          required
                         />
                       </Field.Root>
                       {/* <Field.Root>
@@ -112,6 +114,7 @@ export default function CadastroPage() {
                         />
                       </Field.Root> */}
                     </HStack>
+
                     <Field.Root>
                       <FieldLabel>Telefone</FieldLabel>
                       <Input
@@ -143,7 +146,7 @@ export default function CadastroPage() {
                     <Field.Root>
                       <FieldLabel>
                         Já possui Cadastro?
-                        <Link variant={"underline"} href="/">
+                        <Link color="green.500" variant={"underline"} href="/">
                           Realize o Login
                         </Link>
                       </FieldLabel>
