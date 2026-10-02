@@ -42,6 +42,11 @@ export default function SideBar() {
         </Box>
         <Box>
           <Button variant={"ghost"} w="100%" justifyContent={"flex-start"}>
+            Conversa
+          </Button>
+        </Box>
+        <Box>
+          <Button variant={"ghost"} w="100%" justifyContent={"flex-start"}>
             Sair
           </Button>
         </Box>

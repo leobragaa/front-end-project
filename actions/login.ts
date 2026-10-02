@@ -3,7 +3,6 @@ import api from "./api";
 interface UsuarioInterface {
   id: number;
   nome: string;
-  cfn: string;
   email: string;
 }
 

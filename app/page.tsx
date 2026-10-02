@@ -127,8 +127,16 @@ export default function HomePage() {
                       />
                       {errors.senha && touched.senha && errors.senha}
                     </Field.Root>
-                    <Field.Root></Field.Root>
                   </Stack>
+                  <Field.Root>
+                    <Field.Label>
+                      {" "}
+                      Esqueceu a Senha?
+                      <Text color={"green.600"}>
+                        <Link href={"#"}>Recupere sua Senha</Link>
+                      </Text>
+                    </Field.Label>
+                  </Field.Root>
                   <Checkbox.Root maxW="240px" marginTop="10px">
                     <Checkbox.HiddenInput />
                     <Checkbox.Control />
@@ -151,11 +159,15 @@ export default function HomePage() {
                   </Button>
                 </Card.Footer>
                 <Card.Footer>
-                  <Text fontSize={"sm"}>
-                    Não possui Cadastro?
-                    <Link href={"/cadastro"}> Crie sua Conta </Link>
-                    Prossional
-                  </Text>
+                  <Field.Root>
+                    <Field.Label>
+                      Não possui Cadastro?
+                      <Text color={"green.600"}>
+                        <Link href={"/cadastro"}> Crie sua Conta </Link>
+                      </Text>
+                      Prossional
+                    </Field.Label>
+                  </Field.Root>
                 </Card.Footer>
               </Card.Root>
             </GridItem>
