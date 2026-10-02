@@ -16,11 +16,11 @@ export default function PacientePage() {
             <Table.ColumnHeader>Ações</Table.ColumnHeader>
           </Table.Row>
         </Table.Header>
-        <Table.Body>
+        {/* <Table.Body>
           <Table.Root>
             <Table.Cell></Table.Cell>
           </Table.Root>
-        </Table.Body>
+        </Table.Body> */}
       </Table.Root>
     </Table.ScrollArea>
   );

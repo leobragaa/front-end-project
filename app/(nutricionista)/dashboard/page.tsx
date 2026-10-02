@@ -1,4 +1,4 @@
-import SideBar from "@/components/ui/sidebar";
+"use client";
 import { Grid, GridItem, Text } from "@chakra-ui/react";
 
 export default function DahsboardPage() {
@@ -8,10 +8,7 @@ export default function DahsboardPage() {
       flexDirection={["column", "column", "row", "row"]}
       height={"100vh"}
     >
-      <GridItem colSpan={[12, 12, 2, 2]}>
-        <SideBar />
-      </GridItem>
-      <GridItem colSpan={[12, 12, 10, 10]}>
+      <GridItem colSpan={[12, 12, 12, 12]}>
         <Text> HIIIIIIIIIIII </Text>
       </GridItem>
     </Grid>
