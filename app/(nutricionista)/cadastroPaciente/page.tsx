@@ -89,6 +89,25 @@ export default function CadastroPaciente() {
           </Field.Root>
         </HStack>
       </Card.Body>
+      <Card.Header>
+        <Card.Title> Dados Clinicos</Card.Title>
+      </Card.Header>
+      <Card.Body>
+        <HStack>
+          <Field.Root>
+            <Field.Label>Peso</Field.Label>
+            <Input placeholder="80.0 kg" type="number" />
+          </Field.Root>
+          <Field.Root>
+            <Field.Label>Altura</Field.Label>
+            <Input placeholder="1.75 m" type="number" />
+          </Field.Root>
+        </HStack>
+        <Field.Root>
+          <Field.Label>Alergia</Field.Label>
+          <Input placeholder="Informe as alergias do Paciente" type="Text" />
+        </Field.Root>
+      </Card.Body>
     </Card.Root>
     //     </form>
     // </Formik>
