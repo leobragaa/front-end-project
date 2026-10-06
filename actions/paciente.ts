@@ -1,6 +1,6 @@
 import api from "./api";
 
-interface PacienteCadastro {
+interface Paciente {
   nome: string;
   email: string;
   senha: string;
@@ -16,9 +16,7 @@ interface PacienteCadastro {
   //   usuario_id: number;
 }
 
-export async function pacienteCadastro(
-  paciente: PacienteCadastro,
-): Promise<PacienteCadastro> {
+export async function pacienteCadastro(paciente: Paciente): Promise<Paciente> {
   console.log("dentro do envio", paciente);
   const resposta = await api.post("/paciente", {
     ...paciente,
@@ -26,6 +24,15 @@ export async function pacienteCadastro(
   });
 
   console.log("Cadastro de Paciente Concluido:", resposta.data);
+
+  return resposta.data;
+}
+export async function getPaciente(
+  id: number,
+): Promise<Array<Paciente | undefined>> {
+  const resposta = await api.get(`paciente`, {
+    params: { id },
+  });
 
   return resposta.data;
 }

@@ -23,3 +23,13 @@ export async function dadosClinicosCadastro(
 
   return resposta.data;
 }
+
+export async function getDadosClinicos(
+  id: number,
+): Promise<Array<DadosClinicos | undefined>> {
+  const resposta = await api.get(`dadosclinicos`, {
+    params: { id },
+  });
+
+  return resposta.data;
+}

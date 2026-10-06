@@ -21,16 +21,10 @@ export async function cadastroUsuario(usuario: Usuario): Promise<Usuario> {
 }
 
 export async function getUsuario(
-  email: string,
-  nome: string,
-  telefone: string,
+  id: number,
 ): Promise<Array<Usuario | undefined>> {
   const resposta = await api.get(`usuario`, {
-    params: {
-      email,
-      nome,
-      telefone,
-    },
+    params: { id },
   });
 
   return resposta.data;

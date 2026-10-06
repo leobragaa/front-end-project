@@ -1,4 +1,5 @@
-"use client";
+"use server";
+import { getUsuario } from "@/actions/cadastro";
 import {
   Avatar,
   Box,
@@ -12,7 +13,8 @@ import {
 } from "@chakra-ui/react";
 import Link from "next/link";
 
-export default function SideBar() {
+export default async function SideBar() {
+  const nutricionista = await getUsuario(1);
   return (
     <Flex as={"nav"} direction={"column"} h={"100vh"}>
       <Heading>
@@ -66,16 +68,20 @@ export default function SideBar() {
         </Box>
       </Stack>
       <Stack gap={"8"}>
-        <HStack gap={"4"}>
-          <Avatar.Root>
-            <Avatar.Fallback />
-            <Avatar.Image src={"https://bit.ly/broken-link"} />
-          </Avatar.Root>
-          <Stack gap={"0"}>
-            <Text fontWeight={"medium"}>{}</Text>
-            <Text color="fg.muted" textStyle={"sm"}></Text>
-          </Stack>
-        </HStack>
+        {nutricionista.map((usuario) => (
+          <HStack gap={"4"} key={usuario?.email}>
+            <Avatar.Root>
+              <Avatar.Fallback name={usuario?.nome} />
+              <Avatar.Image src={"https://bit.ly/broken-link"} />
+            </Avatar.Root>
+            <Stack gap={"0"}>
+              <Text fontWeight={"medium"}>{usuario?.nome}</Text>
+              <Text color="fg.muted" textStyle={"sm"}>
+                {usuario?.email}
+              </Text>
+            </Stack>
+          </HStack>
+        ))}
       </Stack>
     </Flex>
   );

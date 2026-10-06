@@ -1,16 +1,11 @@
-"use client";
-import {
-  Box,
-  Button,
-  Card,
-  Field,
-  Grid,
-  GridItem,
-  Table,
-} from "@chakra-ui/react";
+"use server";
+import {} from "@/actions/cadastro";
+import { getPaciente } from "@/actions/paciente";
+import { Box, Button, Grid, GridItem, Table } from "@chakra-ui/react";
 import Link from "next/link";
 
-export default function PacientePage() {
+export default async function PacientePage() {
+  const pacientes = await getPaciente(1);
   return (
     <Grid
       templateColumns={"repeat(12, 1fr)"}
@@ -49,11 +44,22 @@ export default function PacientePage() {
                 <Table.ColumnHeader>Ações</Table.ColumnHeader>
               </Table.Row>
             </Table.Header>
-            {/* <Table.Body>
-          <Table.Root>
-            <Table.Cell></Table.Cell>
-          </Table.Root>
-        </Table.Body> */}
+            <Table.Body>
+              {pacientes.map((paciente) => (
+                <Table.Row key={paciente?.tipousuario}>
+                  <Table.Cell> {paciente?.nome}</Table.Cell>
+                  <Table.Cell> {paciente?.datanascimento}</Table.Cell>
+                  <Table.Cell>
+                    {" "}
+                    {paciente?.telefone} {paciente?.email}
+                  </Table.Cell>
+                  <Table.Cell> {paciente?.sexo}</Table.Cell>
+                  <Table.Cell> </Table.Cell>
+                  <Table.Cell> {paciente?.cpf}</Table.Cell>
+                  <Table.Cell> {paciente?.cpf}</Table.Cell>
+                </Table.Row>
+              ))}
+            </Table.Body>
           </Table.Root>
         </Table.ScrollArea>
       </GridItem>
