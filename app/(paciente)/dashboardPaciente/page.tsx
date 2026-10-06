@@ -1,7 +1,7 @@
 "use client";
-import { Box, Grid, GridItem } from "@chakra-ui/react";
+import { Box, Grid, GridItem, Text } from "@chakra-ui/react";
 
-export default function DahsboardPage() {
+export default function DahsboardPagePaciente() {
   return (
     <Grid
       templateColumns={"repeat(12, 1fr)"}
@@ -28,7 +28,7 @@ export default function DahsboardPage() {
         colSpan={[12, 12, 12, 12]}
         width={"100"}
         height={"100vh"}
-        background={"blue.500"}
+        background={"orange.500"}
       ></GridItem>
     </Grid>
   );

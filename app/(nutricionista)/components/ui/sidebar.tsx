@@ -1,3 +1,4 @@
+"use client";
 import {
   Avatar,
   Box,
@@ -10,14 +11,14 @@ import {
   Text,
 } from "@chakra-ui/react";
 import Link from "next/link";
+
 export default function SideBar() {
   return (
     <Flex as={"nav"} direction={"column"} h={"100vh"}>
       <Heading>
         <HStack alignItems={"center"}>
-          <Image src={"NutriFlowSFun.png"} w={"14"} />
+          <Image src={"/NutriFlowSFun.png"} w={"14"} />
           <Text color={"green.600"} fontWeight={"bold"}>
-            {" "}
             NutriFlow
           </Text>
         </HStack>
@@ -31,16 +32,23 @@ export default function SideBar() {
           </Link>
         </Box>
         <Box>
-          <Link href={"/listaPaciente"}>
+          <Link href={"/planoAlimentar"}>
             <Button variant={"ghost"} w="100%" justifyContent={"flex-start"}>
-              Paciente
+              Plano Alimentar
             </Button>
           </Link>
         </Box>
         <Box>
-          <Link href={"/cadastroPaciente"}>
+          <Link href={"/dadosClinicosCadastro"}>
             <Button variant={"ghost"} w="100%" justifyContent={"flex-start"}>
-              Cadastrar Paciente
+              Dados Clínicos
+            </Button>
+          </Link>
+        </Box>
+        <Box>
+          <Link href={"/pacientesNutricionista"}>
+            <Button variant={"ghost"} w="100%" justifyContent={"flex-start"}>
+              Pacientes
             </Button>
           </Link>
         </Box>
@@ -58,16 +66,14 @@ export default function SideBar() {
         </Box>
       </Stack>
       <Stack gap={"8"}>
-        <HStack gap={"4"} key={"usuario.email"}>
+        <HStack gap={"4"}>
           <Avatar.Root>
-            <Avatar.Fallback name="Pamonha" />
+            <Avatar.Fallback />
             <Avatar.Image src={"https://bit.ly/broken-link"} />
           </Avatar.Root>
           <Stack gap={"0"}>
-            <Text fontWeight={"medium"}>Pamonha</Text>
-            <Text color="fg.muted" textStyle={"sm"}>
-              pamonha@email.com
-            </Text>
+            <Text fontWeight={"medium"}>{}</Text>
+            <Text color="fg.muted" textStyle={"sm"}></Text>
           </Stack>
         </HStack>
       </Stack>

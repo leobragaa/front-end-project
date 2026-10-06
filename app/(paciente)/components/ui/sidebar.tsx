@@ -33,7 +33,14 @@ export default function SideBar() {
         <Box>
           <Link href={"/listaPaciente"}>
             <Button variant={"ghost"} w="100%" justifyContent={"flex-start"}>
-              Paciente
+              Agenda
+            </Button>
+          </Link>
+        </Box>
+        <Box>
+          <Link href={"/listaPaciente"}>
+            <Button variant={"ghost"} w="100%" justifyContent={"flex-start"}>
+              Evolução
             </Button>
           </Link>
         </Box>
