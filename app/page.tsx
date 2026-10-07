@@ -8,12 +8,16 @@ import {
   Card,
   Center,
   Checkbox,
+  createListCollection,
   Field,
   Flex,
   Grid,
   GridItem,
   Image,
   Input,
+  NativeSelect,
+  Portal,
+  Select,
   Stack,
   Strong,
   Text,
@@ -24,15 +28,27 @@ import { useRouter } from "next/navigation";
 
 export default function HomePage() {
   const router = useRouter();
-
+  const tiposDeUsuarioList = createListCollection({
+    items: [
+      { label: "Nutricionista", value: "Nutricionista" },
+      { label: "Paciente", value: "Paciente" },
+    ],
+  });
   return (
     <Formik
-      initialValues={{ email: "", senha: "" }}
+      initialValues={{ email: "", senha: "", tipousuario: "" }}
       onSubmit={async (values, { setSubmitting }) => {
         console.log(values);
         try {
-          const usuario = await realizarLogin(values.email, values.senha);
+          const usuario = await realizarLogin(
+            values.email,
+            values.senha,
+            values.tipousuario,
+          );
           console.log("Dentro do form", usuario);
+          if (values.tipousuario == "Paciente") {
+            router.push("/dashboardPaciente");
+          }
           router.push("/dashboard");
         } catch (error) {
           console.log("Erro em logar", error);
@@ -51,7 +67,6 @@ export default function HomePage() {
         /* and other goodies */
       }) => (
         <form onSubmit={handleSubmit}>
-          {/* <Center> */}
           <Grid
             flexDirection={["column", "column", "row", "row"]}
             templateColumns="repeat(8, 1fr)"
@@ -85,7 +100,7 @@ export default function HomePage() {
             </GridItem>
 
             <GridItem colSpan={[8, 8, 3, 3]} marginLeft={"5"} marginRight={"5"}>
-              <Card.Root marginTop={["0px", "0px", "28", "28"]}>
+              <Card.Root marginTop={["0px", "0px", "8", "8"]}>
                 <Card.Header alignItems="center">
                   <Image
                     justifyContent="center"
@@ -99,6 +114,37 @@ export default function HomePage() {
                 </Card.Header>
                 <Card.Body>
                   <Stack gap="4">
+                    <Select.Root
+                      collection={tiposDeUsuarioList}
+                      size="sm"
+                      width="320px"
+                    >
+                      <Select.HiddenSelect />
+                      <Select.Label>Quem está acessando:</Select.Label>
+                      <Select.Control>
+                        <Select.Trigger>
+                          <Select.ValueText placeholder="Informe quem está acessando" />
+                        </Select.Trigger>
+                        <Select.IndicatorGroup>
+                          <Select.Indicator />
+                        </Select.IndicatorGroup>
+                      </Select.Control>
+                      <Portal>
+                        <Select.Positioner>
+                          <Select.Content>
+                            {tiposDeUsuarioList.items.map((tipousuario) => (
+                              <Select.Item
+                                item={tipousuario}
+                                key={tipousuario.value}
+                              >
+                                {tipousuario.label}
+                                <Select.ItemIndicator />
+                              </Select.Item>
+                            ))}
+                          </Select.Content>
+                        </Select.Positioner>
+                      </Portal>
+                    </Select.Root>
                     <Field.Root>
                       <Field.Label color="green.600" fontSize="15px">
                         <strong>E-MAIL :</strong>
@@ -153,6 +199,7 @@ export default function HomePage() {
                     cursor="pointer"
                     type="submit"
                     variant="solid"
+                    loading={isSubmitting}
                     disabled={isSubmitting}
                   >
                     <Strong> ENTRAR </Strong>
@@ -172,7 +219,6 @@ export default function HomePage() {
               </Card.Root>
             </GridItem>
           </Grid>
-          {/* </Center> */}
         </form>
       )}
     </Formik>
