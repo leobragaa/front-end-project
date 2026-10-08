@@ -22,7 +22,7 @@ export async function pacienteCadastro(
   console.log("dentro do envio", paciente);
   const resposta = await api.post("/paciente", {
     ...paciente,
-    tipousuario: "Paciente",
+    tipousuario: "paciente",
   });
 
   console.log("Cadastro de Paciente Concluido:", resposta.data);

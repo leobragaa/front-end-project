@@ -62,6 +62,9 @@ export default function CadastroPage() {
                       alt="Logo do topo NutriFlow"
                     />
                     <Card.Title> Cadastre sua Conta Profissional </Card.Title>
+                    <Card.Description margin="2px">
+                      De Nutricionista
+                    </Card.Description>
                   </Card.Header>
                   <Card.Body gap={"5"}>
                     <Field.Root>
