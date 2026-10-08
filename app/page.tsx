@@ -15,7 +15,6 @@ import {
   GridItem,
   Image,
   Input,
-  NativeSelect,
   Portal,
   Select,
   Stack,
@@ -46,10 +45,12 @@ export default function HomePage() {
             values.tipousuario,
           );
           console.log("Dentro do form", usuario);
-          if (values.tipousuario == "Paciente") {
+
+          if (values.tipousuario === "Paciente") {
             router.push("/dashboardPaciente");
+          } else {
+            router.push("/dashboard");
           }
-          router.push("/dashboard");
         } catch (error) {
           console.log("Erro em logar", error);
         }
@@ -60,6 +61,7 @@ export default function HomePage() {
         values,
         errors,
         touched,
+        setFieldValue,
         handleChange,
         handleBlur,
         handleSubmit,
@@ -116,6 +118,13 @@ export default function HomePage() {
                   <Stack gap="4">
                     <Select.Root
                       collection={tiposDeUsuarioList}
+                      value={values.tipousuario ? [values.tipousuario] : []}
+                      onValueChange={(selecaoTipoUsuario) => {
+                        setFieldValue(
+                          "tipousuario",
+                          selecaoTipoUsuario.value[0],
+                        );
+                      }}
                       size="sm"
                       width="320px"
                     >
@@ -132,12 +141,9 @@ export default function HomePage() {
                       <Portal>
                         <Select.Positioner>
                           <Select.Content>
-                            {tiposDeUsuarioList.items.map((tipousuario) => (
-                              <Select.Item
-                                item={tipousuario}
-                                key={tipousuario.value}
-                              >
-                                {tipousuario.label}
+                            {tiposDeUsuarioList.items.map((items) => (
+                              <Select.Item item={items} key={items.value}>
+                                {items.label}
                                 <Select.ItemIndicator />
                               </Select.Item>
                             ))}

@@ -1,13 +1,5 @@
 "use client";
-import {
-  Box,
-  Button,
-  Card,
-  Field,
-  Grid,
-  GridItem,
-  Table,
-} from "@chakra-ui/react";
+import { Box, Button, Grid, GridItem, Table } from "@chakra-ui/react";
 import Link from "next/link";
 
 export default function PacientePage() {
