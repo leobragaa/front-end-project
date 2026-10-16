@@ -46,7 +46,7 @@ export default async function PacientePage() {
             </Table.Header>
             <Table.Body>
               {pacientes.map((paciente) => (
-                <Table.Row key={paciente?.tipousuario}>
+                <Table.Row key={paciente?.id}>
                   <Table.Cell> {paciente?.nome}</Table.Cell>
                   <Table.Cell> {paciente?.datanascimento}</Table.Cell>
                   <Table.Cell>

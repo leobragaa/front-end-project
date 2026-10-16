@@ -68,20 +68,20 @@ export default async function SideBar() {
         </Box>
       </Stack>
       <Stack gap={"8"}>
-        {nutricionista.map((usuario) => (
-          <HStack gap={"4"} key={usuario?.email}>
+        {nutricionista && (
+          <HStack gap={"4"} key={nutricionista.email}>
             <Avatar.Root>
-              <Avatar.Fallback name={usuario?.nome} />
+              <Avatar.Fallback name={nutricionista.nome} />
               <Avatar.Image src={"https://bit.ly/broken-link"} />
             </Avatar.Root>
             <Stack gap={"0"}>
-              <Text fontWeight={"medium"}>{usuario?.nome}</Text>
+              <Text fontWeight={"medium"}>{nutricionista.nome}</Text>
               <Text color="fg.muted" textStyle={"sm"}>
-                {usuario?.email}
+                {nutricionista.email}
               </Text>
             </Stack>
           </HStack>
-        ))}
+        )}
       </Stack>
     </Flex>
   );

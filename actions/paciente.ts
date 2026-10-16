@@ -1,6 +1,7 @@
 import api from "./api";
 
 interface Paciente {
+  id: number;
   nome: string;
   email: string;
   senha: string;
@@ -20,7 +21,7 @@ export async function pacienteCadastro(paciente: Paciente): Promise<Paciente> {
   console.log("dentro do envio", paciente);
   const resposta = await api.post("/paciente", {
     ...paciente,
-    tipousuario: "Paciente",
+    tipousuario: "paciente",
   });
 
   console.log("Cadastro de Paciente Concluido:", resposta.data);
@@ -28,10 +29,10 @@ export async function pacienteCadastro(paciente: Paciente): Promise<Paciente> {
   return resposta.data;
 }
 export async function getPaciente(
-  id: number,
-): Promise<Array<Paciente | undefined>> {
-  const resposta = await api.get(`paciente`, {
-    params: { id },
+  id_nutricionista: number,
+): Promise<Paciente[]> {
+  const resposta = await api.get("/paciente/nutricionista", {
+    params: { id_nutricionista },
   });
 
   return resposta.data;
