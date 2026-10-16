@@ -1,6 +1,7 @@
 import api from "./api";
 
 interface Usuario {
+  id: number;
   nome: string;
   email: string;
   senha: string;
@@ -20,18 +21,8 @@ export async function cadastroUsuario(usuario: Usuario): Promise<Usuario> {
   return resposta.data;
 }
 
-export async function getUsuario(
-  email: string,
-  nome: string,
-  telefone: string,
-): Promise<Array<Usuario | undefined>> {
-  const resposta = await api.get(`usuario`, {
-    params: {
-      email,
-      nome,
-      telefone,
-    },
-  });
-
+export async function getUsuario(id: number): Promise<Usuario> {
+  console.log("ID enviado para buscar usuário:", id);
+  const resposta = await api.get(`/usuario/${id}`);
   return resposta.data;
 }

@@ -1,3 +1,4 @@
+"use server";
 import { Grid, GridItem } from "@chakra-ui/react";
 import SideBar from "./components/ui/sidebar";
 

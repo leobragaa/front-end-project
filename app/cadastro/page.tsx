@@ -24,6 +24,7 @@ export default function CadastroPage() {
   return (
     <Formik
       initialValues={{
+        id: parseInt(""),
         nome: "",
         email: "",
         senha: "",

@@ -19,6 +19,7 @@ export default function CadastroPaciente() {
   return (
     <Formik
       initialValues={{
+        id: parseInt(""),
         nome: "",
         email: "",
         senha: "",

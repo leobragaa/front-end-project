@@ -1,4 +1,5 @@
-"use client";
+"use server";
+import { getUsuario } from "@/actions/cadastro";
 import {
   Avatar,
   Box,
@@ -18,7 +19,8 @@ import { FaRegClipboard } from "react-icons/fa";
 import { LuPencilRuler } from "react-icons/lu";
 import { MdOutlineHome } from "react-icons/md";
 
-export default function SideBar() {
+export default async function SideBar() {
+  const nutricionista = await getUsuario(1);
   return (
     <Flex as={"nav"} direction={"column"} h={"100vh"}>
       <Heading>
@@ -72,16 +74,20 @@ export default function SideBar() {
         </Box>
       </Stack>
       <Stack gap={"8"}>
-        <HStack gap={"4"}>
-          <Avatar.Root>
-            <Avatar.Fallback />
-            <Avatar.Image src={"https://bit.ly/broken-link"} />
-          </Avatar.Root>
-          <Stack gap={"0"}>
-            <Text fontWeight={"medium"}>{}</Text>
-            <Text color="fg.muted" textStyle={"sm"}></Text>
-          </Stack>
-        </HStack>
+        {nutricionista && (
+          <HStack gap={"4"} key={nutricionista.email}>
+            <Avatar.Root>
+              <Avatar.Fallback name={nutricionista.nome} />
+              <Avatar.Image src={"https://bit.ly/broken-link"} />
+            </Avatar.Root>
+            <Stack gap={"0"}>
+              <Text fontWeight={"medium"}>{nutricionista.nome}</Text>
+              <Text color="fg.muted" textStyle={"sm"}>
+                {nutricionista.email}
+              </Text>
+            </Stack>
+          </HStack>
+        )}
       </Stack>
       <Box>
         <Link href={"/"}>

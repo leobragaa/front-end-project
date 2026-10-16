@@ -1,7 +1,6 @@
 import api from "./api";
 
 interface UsuarioInterface {
-  id: number;
   nome: string;
   email: string;
   tipousuario: string;
