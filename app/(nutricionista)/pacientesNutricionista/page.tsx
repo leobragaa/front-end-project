@@ -7,10 +7,10 @@ export default function PacientePage() {
     <Grid
       templateColumns={"repeat(12, 1fr)"}
       flexDirection={["column", "column", "row", "row"]}
-      width={"100vw"}
+      width={"100%"}
       height={"100vh"}
     >
-      <GridItem colSpan={[12, 12, 2, 12]} width={"100vw"} height={"40"}>
+      <GridItem colSpan={[12, 12, 2, 12]} width={"100%"} height={"40"}>
         <Link href={"/pacienteCadastro"}>
           <Button>Cadastrar Paciente</Button>
         </Link>

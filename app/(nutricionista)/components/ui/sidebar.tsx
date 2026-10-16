@@ -11,6 +11,12 @@ import {
   Text,
 } from "@chakra-ui/react";
 import Link from "next/link";
+import { useEffect } from "react";
+import { BiLogOut, BiMessageDetail } from "react-icons/bi";
+import { BsPerson } from "react-icons/bs";
+import { FaRegClipboard } from "react-icons/fa";
+import { LuPencilRuler } from "react-icons/lu";
+import { MdOutlineHome } from "react-icons/md";
 
 export default function SideBar() {
   return (
@@ -27,6 +33,7 @@ export default function SideBar() {
         <Box>
           <Link href={"/dashboard"}>
             <Button variant={"ghost"} w="100%" justifyContent={"flex-start"}>
+              <MdOutlineHome />
               Dashboard
             </Button>
           </Link>
@@ -34,6 +41,7 @@ export default function SideBar() {
         <Box>
           <Link href={"/planoAlimentar"}>
             <Button variant={"ghost"} w="100%" justifyContent={"flex-start"}>
+              <FaRegClipboard />
               Plano Alimentar
             </Button>
           </Link>
@@ -41,6 +49,7 @@ export default function SideBar() {
         <Box>
           <Link href={"/dadosClinicosCadastro"}>
             <Button variant={"ghost"} w="100%" justifyContent={"flex-start"}>
+              <LuPencilRuler />
               Dados Clínicos
             </Button>
           </Link>
@@ -48,19 +57,16 @@ export default function SideBar() {
         <Box>
           <Link href={"/pacientesNutricionista"}>
             <Button variant={"ghost"} w="100%" justifyContent={"flex-start"}>
+              <BsPerson />
               Pacientes
             </Button>
           </Link>
         </Box>
         <Box>
-          <Button variant={"ghost"} w="100%" justifyContent={"flex-start"}>
-            Conversa
-          </Button>
-        </Box>
-        <Box>
-          <Link href={"/"}>
+          <Link href={"/chatNutricionista"}>
             <Button variant={"ghost"} w="100%" justifyContent={"flex-start"}>
-              Sair
+              <BiMessageDetail />
+              Conversa
             </Button>
           </Link>
         </Box>
@@ -77,6 +83,14 @@ export default function SideBar() {
           </Stack>
         </HStack>
       </Stack>
+      <Box>
+        <Link href={"/"}>
+          <Button variant={"ghost"} w="100%" alignItems={"center"}>
+            <BiLogOut />
+            Sair
+          </Button>
+        </Link>
+      </Box>
     </Flex>
   );
 }
