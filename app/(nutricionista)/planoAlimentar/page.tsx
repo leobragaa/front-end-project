@@ -1,26 +1,64 @@
 "use client";
-import { dadosClinicosCadastro } from "@/actions/dadosclinicos";
+import { registerAlimento } from "@/actions/alimento";
+import { registerItemRefeicao } from "@/actions/itemrefeicao";
+import { registerPlanoAlimentar } from "@/actions/planoalimentar";
+import { registerRefeicao } from "@/actions/refeicao";
 import { Button, Card, Field, HStack, Input } from "@chakra-ui/react";
 import { Formik } from "formik";
 
-export default function CadastroPaciente() {
+export default function CadastroPlanoAlimeentar() {
   return (
     <Formik
       initialValues={{
-        peso: parseFloat(""),
-        altura: parseFloat(""),
-        objetivopessoal: "",
-        atvFisica: "",
-        hidratacao: "",
-        dataregistro: "",
-        alergia: "",
+        paciente_id: "",
+        refeicao: [
+          {
+            refeicao_nome: "",
+            horario_refeicao: "",
+            itemrefeicao: [
+              {
+                quantidade: "",
+                unidade: "g",
+                alimento_id: {
+                  alimento_nome: "",
+                  descricao_alimento: "",
+                  calorias_alimento: parseFloat(""),
+                  proteina_alimento: parseFloat(""),
+                  carboidrato_alimento: parseFloat(""),
+                },
+              },
+            ],
+          },
+        ],
       }}
       onSubmit={async (values, { setSubmitting }) => {
         try {
-          const dadosClinicos = await dadosClinicosCadastro(values);
-          console.log("Dentro do form Dados Clinicos", dadosClinicos);
+          const planoAlimentar = await registerPlanoAlimentar(values);
+          console.log("Dentro do form de Plano Alimentar", planoAlimentar);
         } catch (error) {
-          console.log("Erro ao Cadastrar Dados Clinicos", error);
+          console.log("Erro ao Cadastrar Plano Alimentar", error);
+        }
+        try {
+          const refeicao = await registerRefeicao(values);
+          console.log("Dentro do form de Plano Alimentar Refeicao", refeicao);
+        } catch (error) {
+          console.log("Erro ao Cadastrar Plano Alimentar refeicao", error);
+        }
+        try {
+          const itemRefeicao = await registerItemRefeicao(values);
+
+          console.log(
+            "Dentro do form de Plano Alimentar item refeicao",
+            itemRefeicao,
+          );
+        } catch (error) {
+          console.log("Erro ao Cadastrar Plano Alimentar item refeicao", error);
+        }
+        try {
+          const alimento = await registerAlimento(values);
+          console.log("Dentro do form de Plano Alimentar Alimento", alimento);
+        } catch (error) {
+          console.log("Erro ao Cadastrar Plano Alimentar Alimento", error);
         }
         setSubmitting(false);
       }}
@@ -38,7 +76,7 @@ export default function CadastroPaciente() {
                   <Input
                     placeholder="80.0 kg"
                     type="number"
-                    value={values.peso}
+                    // value={values.peso}
                     onChange={handleChange}
                     onBlur={handleBlur}
                   />
@@ -48,7 +86,7 @@ export default function CadastroPaciente() {
                   <Input
                     placeholder="1.68 m"
                     type="number"
-                    value={values.altura}
+                    // value={values.altura}
                     onChange={handleChange}
                     onBlur={handleBlur}
                   />
@@ -59,7 +97,7 @@ export default function CadastroPaciente() {
                 <Input
                   placeholder="Informe as alergias do Paciente"
                   type="Text"
-                  value={values.alergia}
+                  // value={values.alergia}
                   onChange={handleChange}
                   onBlur={handleBlur}
                 />
@@ -69,7 +107,7 @@ export default function CadastroPaciente() {
                 <Input
                   placeholder="Informe as alergias do Paciente"
                   type="Text"
-                  value={values.hidratacao}
+                  // value={values.hidratacao}
                   onChange={handleChange}
                   onBlur={handleBlur}
                 />
@@ -80,7 +118,7 @@ export default function CadastroPaciente() {
                   type="submit"
                   disabled={isSubmitting}
                 >
-                  CADASTRAR DADOS CLINICOS
+                  CADASTRAR PLANO ALIMENTAR
                 </Button>
               </Card.Footer>
             </Card.Body>

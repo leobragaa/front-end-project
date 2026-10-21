@@ -12,7 +12,6 @@ import {
   Text,
 } from "@chakra-ui/react";
 import Link from "next/link";
-import { useEffect } from "react";
 import { BiLogOut, BiMessageDetail } from "react-icons/bi";
 import { BsPerson } from "react-icons/bs";
 import { FaRegClipboard } from "react-icons/fa";
