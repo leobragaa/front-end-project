@@ -1,15 +1,20 @@
 import api from "axios";
 import { Refeicao } from "./refeicao";
 
-export interface PlanoAlimentar {
-  id?: number;
+export interface CriarPlanoAlimentar {
   paciente_id: number;
   data_plano: Date;
-  refeicao: Refeicao[];
+  refeicao?: Refeicao[];
+}
+export interface PlanoAlimentar {
+  id: number;
+  paciente_id: number;
+  data_plano: Date;
+  refeicao?: Refeicao[];
 }
 
 export async function registerPlanoAlimentar(
-  planoalimentar: PlanoAlimentar,
+  planoalimentar: CriarPlanoAlimentar,
 ): Promise<PlanoAlimentar> {
   console.log("Dentro do Plano Alimentar");
 
