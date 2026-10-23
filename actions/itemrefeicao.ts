@@ -1,4 +1,4 @@
-import api from "axios";
+import api from "./api";
 
 export interface ItemRefeicao {
   alimento_id: number;

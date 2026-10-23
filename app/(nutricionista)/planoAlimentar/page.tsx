@@ -14,14 +14,14 @@ export default function CadastroPlanoAlimeentar() {
   return (
     <Formik
       initialValues={{
-        data_plano: new Date(""),
+        data_plano: "",
         paciente_id: 0,
         refeicao: [
           {
             planoalimentar_id: 0,
             refeicao_nome: "",
             ordem_refeicao: 0,
-            horario_refeicao: new Date(""),
+            horario_refeicao: "",
             itemrefeicao: [
               {
                 quantidade_item: 0,
@@ -52,7 +52,7 @@ export default function CadastroPlanoAlimeentar() {
               refeicao_nome: refeicaoForm.refeicao_nome,
               ordem_refeicao: refeicaoForm.ordem_refeicao,
               horario_refeicao: refeicaoForm.horario_refeicao,
-              planoalimentar_id: planoAlimentar.id,
+              plano_alimentar_id: planoAlimentar.id,
             });
 
             for (const alimentosForm of refeicaoForm.itemrefeicao) {
@@ -75,7 +75,7 @@ export default function CadastroPlanoAlimeentar() {
           }
           console.log("Plano Alimentar finalizado e cadastrado !");
         } catch (error) {
-          console.log("Erro ao Cadastrar Plano Alimentar Alimento", error);
+          console.log("Erro ao Cadastrar Plano Alimentar ", error);
         }
         setSubmitting(false);
       }}
@@ -88,7 +88,6 @@ export default function CadastroPlanoAlimeentar() {
             </Card.Header>
             <Card.Body>
               <Field.Root>
-                <Text></Text>
                 <Field.Label>
                   <LuUserSearch />
                   Paciente
@@ -96,7 +95,22 @@ export default function CadastroPlanoAlimeentar() {
                 <Input
                   placeholder="Selecione o Paciente"
                   name="paciente_id"
+                  value={values.paciente_id}
                   type="number"
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                />
+              </Field.Root>
+              <Field.Root>
+                <Field.Label>
+                  <LuUserSearch />
+                  Data Registro
+                </Field.Label>
+                <Input
+                  placeholder="dd/mm/aaaa"
+                  name="data_plano"
+                  value={values.data_plano}
+                  type="date"
                   onChange={handleChange}
                   onBlur={handleBlur}
                 />
@@ -110,8 +124,8 @@ export default function CadastroPlanoAlimeentar() {
                   <Input
                     placeholder="Exemplo: Café da Manhã"
                     type="Text"
-                    name="refeicao_nome"
-                    value={""}
+                    name={`refeicao[0].refeicao_nome`}
+                    value={values.refeicao[0].refeicao_nome}
                     onChange={handleChange}
                     onBlur={handleBlur}
                   />
@@ -121,8 +135,9 @@ export default function CadastroPlanoAlimeentar() {
                   <Field.Label>Horario da Refeição</Field.Label>
                   <Input
                     placeholder="06:00"
-                    type="Text"
-                    name="horario_refeicao"
+                    type="time"
+                    name={`refeicao[0].horario_refeicao`}
+                    value={values.refeicao[0].horario_refeicao}
                     onChange={handleChange}
                     onBlur={handleBlur}
                   />
@@ -134,20 +149,39 @@ export default function CadastroPlanoAlimeentar() {
               <Text> Alimentos </Text>
               <Field.Root>
                 <Field.Label>Informe o Alimento:</Field.Label>
-                <Input placeholder="Exemplo: Maçã" name="alimento_nome" />
+                <Input
+                  placeholder="Exemplo: Maçã"
+                  type="Text"
+                  name={`refeicao[0].itemrefeicao[0].alimento.alimento_nome`}
+                  value={
+                    values.refeicao[0].itemrefeicao[0].alimento.alimento_nome
+                  }
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                />
               </Field.Root>
 
               <HStack>
                 <Field.Root>
-                  <Field.Label>Quantidade do Alimento:</Field.Label>
-                  <Input placeholder="Exemplo: 2" type="number" />
+                  <Field.Label>Quantidade do Alimentos:</Field.Label>
+                  <Input
+                    placeholder="Exemplo: 2"
+                    type="number"
+                    name={`refeicao[0].itemrefeicao[0].quantidade_item`}
+                    value={values.refeicao[0].itemrefeicao[0].quantidade_item}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                  />
                 </Field.Root>
                 <Field.Root>
                   <Field.Label>Quantidade a Unitaria:</Field.Label>
                   <Input
                     placeholder={"Exemplo: unidade, colher, g, ml"}
                     type={"text"}
-                    name="unidade_item"
+                    name={`refeicao[0].itemrefeicao[0].unidade_item`}
+                    value={values.refeicao[0].itemrefeicao[0].unidade_item}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
                   />
                 </Field.Root>
               </HStack>
@@ -157,19 +191,43 @@ export default function CadastroPlanoAlimeentar() {
                   <Input
                     placeholder="Exemplo: 2"
                     type="number"
-                    name={"calorias_alimento"}
+                    name={`refeicao[0].itemrefeicao[0].alimento
+                        .calorias_alimento`}
+                    value={
+                      values.refeicao[0].itemrefeicao[0].alimento
+                        .calorias_alimento
+                    }
+                    onChange={handleChange}
+                    onBlur={handleBlur}
                   />
                 </Field.Root>
                 <Field.Root>
                   <Field.Label>Quantidade Proteica:</Field.Label>
-                  <Input placeholder={"kcal"} type="number" />
+                  <Input
+                    placeholder={"kcal"}
+                    type="number"
+                    name={`refeicao[0].itemrefeicao[0].alimento[0].proteina_alimento`}
+                    value={
+                      values.refeicao[0].itemrefeicao[0].alimento
+                        .proteina_alimento
+                    }
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                  />
                 </Field.Root>
               </HStack>
               <Field.Root>
                 <Field.Label>Descrição de Consumo:</Field.Label>
                 <Input
                   placeholder="Informe a descrição de consumo do alimento"
-                  name={"descricao_alimento"}
+                  name={`refeicao[0].itemrefeicao[0].alimento
+                      .descricao_alimento`}
+                  value={
+                    values.refeicao[0].itemrefeicao[0].alimento
+                      .descricao_alimento
+                  }
+                  onChange={handleChange}
+                  onBlur={handleBlur}
                   type="text"
                 />
               </Field.Root>
