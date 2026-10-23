@@ -68,6 +68,7 @@ export default function DadosClinicosCadastro() {
                   <Input
                     placeholder="1.75 m"
                     type="number"
+                    name="altura"
                     value={values.altura}
                     onChange={handleChange}
                     onBlur={handleBlur}
