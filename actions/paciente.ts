@@ -14,7 +14,6 @@ interface Paciente {
   endereco: string;
   cep: string;
   tipousuario: string;
-  //   usuario_id: number;
 }
 
 export async function pacienteCadastro(paciente: Paciente): Promise<Paciente> {
