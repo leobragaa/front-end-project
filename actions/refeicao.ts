@@ -1,17 +1,17 @@
-import api from "axios";
+import api from "./api";
 
 export interface CriarRefeicao {
   refeicao_nome: string;
-  horario_refeicao: Date;
+  horario_refeicao: string;
   ordem_refeicao: number;
-  planoalimentar_id: number;
+  plano_alimentar_id: number;
 }
 export interface Refeicao {
   id: number;
   refeicao_nome: string;
   horario_refeicao: Date;
   ordem_refeicao: number;
-  planoalimentar_id: number;
+  plano_alimentar_id: number;
 }
 
 export async function registerRefeicao(

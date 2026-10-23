@@ -1,9 +1,9 @@
-import api from "axios";
+import api from "./api";
 import { Refeicao } from "./refeicao";
 
 export interface CriarPlanoAlimentar {
   paciente_id: number;
-  data_plano: Date;
+  data_plano: string;
   refeicao?: Refeicao[];
 }
 export interface PlanoAlimentar {
@@ -18,7 +18,9 @@ export async function registerPlanoAlimentar(
 ): Promise<PlanoAlimentar> {
   console.log("Dentro do Plano Alimentar");
 
-  const resposta = await api.post("/planoalimentar", { ...planoalimentar });
+  const resposta = await api.post("/plano-alimentar", {
+    ...planoalimentar,
+  });
 
   return resposta.data;
 }
