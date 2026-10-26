@@ -6,30 +6,58 @@ import Link from "next/link";
 
 export default async function PacientePage() {
   const pacientes = await getPaciente(1);
+
   return (
     <Grid
       templateColumns={"repeat(12, 1fr)"}
       flexDirection={["column", "column", "row", "row"]}
       width={"100%"}
       height={"100vh"}
+      gap={"5"}
+      margin={"5"}
+      border={"1px solid"}
     >
-      <GridItem colSpan={[12, 12, 2, 12]} width={"100%"} height={"40"}>
+      <GridItem colSpan={[12, 12, 2, 12]}>
         <Link href={"/pacienteCadastro"}>
           <Button>Cadastrar Paciente</Button>
         </Link>
       </GridItem>
-      <GridItem colSpan={[12, 12, 2, 2]} height={"40"} width={"48"}>
+
+      <GridItem
+        colSpan={[12, 12, 2, 2]}
+        height={"40"}
+        width={"48"}
+        border={"1px solid"}
+      >
         <Box>Total Pacientes</Box>
       </GridItem>
-      <GridItem colSpan={[12, 12, 2, 2]} height={"40"} width={"48"}>
+
+      <GridItem
+        colSpan={[12, 12, 2, 2]}
+        height={"40"}
+        width={"48"}
+        border={"1px solid"}
+      >
         <Box>Pacientes Ativos</Box>
       </GridItem>
-      <GridItem colSpan={[12, 12, 2, 2]} height={"40"} width={"48"}>
+      <GridItem
+        colSpan={[12, 12, 2, 2]}
+        height={"40"}
+        width={"48"}
+        border={"1px solid"}
+      >
         <Box>Em Acompanhamento</Box>
       </GridItem>
-      <GridItem colSpan={[12, 12, 2, 2]} height={"40"} width={"48"}>
+
+      <GridItem
+        colSpan={[12, 12, 2, 2]}
+        height={"40"}
+        width={"48"}
+        border={"1px solid"}
+      >
         <Box>Novos Pacientes</Box>
       </GridItem>
+
       <GridItem colSpan={[12, 12, 10, 10]} width={"100"} height={"100vh"}>
         <Table.ScrollArea>
           <Table.Root>
