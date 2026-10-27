@@ -1,6 +1,6 @@
 "use client";
-import { cadastroUsuario } from "@/actions/cadastro";
-import { PasswordInput } from "@/components/ui/password-input";
+import { cadastroUsuario } from "@/src/actions/cadastro";
+import { PasswordInput } from "@/src/components/ui/password-input";
 import {
   Card,
   Field,

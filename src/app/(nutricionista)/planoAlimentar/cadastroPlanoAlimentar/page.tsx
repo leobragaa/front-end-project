@@ -1,11 +1,22 @@
 "use client";
-import { registerAlimento } from "@/actions/alimento";
-import { registerItemRefeicao } from "@/actions/itemrefeicao";
-import { registerPlanoAlimentar } from "@/actions/planoalimentar";
-import { registerRefeicao } from "@/actions/refeicao";
-import { Button, Card, Field, HStack, Input, Text } from "@chakra-ui/react";
+import { registerAlimento } from "@/src/actions/alimento";
+import { registerItemRefeicao } from "@/src/actions/itemrefeicao";
+import { registerPlanoAlimentar } from "@/src/actions/planoalimentar";
+import { registerRefeicao } from "@/src/actions/refeicao";
+import {
+  Button,
+  Card,
+  Field,
+  HStack,
+  Input,
+  Link,
+  NativeSelect,
+  Text,
+} from "@chakra-ui/react";
 import { Formik } from "formik";
 import { FaRegSave } from "react-icons/fa";
+import { FaArrowLeftLong } from "react-icons/fa6";
+import { HiCalendarDateRange } from "react-icons/hi2";
 import { IoCloseOutline } from "react-icons/io5";
 import { LuUserSearch } from "react-icons/lu";
 import { TiPlus } from "react-icons/ti";
@@ -83,10 +94,16 @@ export default function CadastroPlanoAlimeentar() {
       {({ values, handleChange, handleBlur, handleSubmit, isSubmitting }) => (
         <form onSubmit={handleSubmit}>
           <Card.Root border={"1px solid"} margin={"5"}>
+            <Link href="/planoAlimentar">
+              <Button variant={"ghost"}>
+                {" "}
+                <FaArrowLeftLong /> <Text>Voltar</Text>
+              </Button>
+            </Link>
             <Card.Header>
               <Card.Title> Cadastro Plano Alimentar</Card.Title>
             </Card.Header>
-            <Card.Body>
+            <Card.Body gap={"2"}>
               <Field.Root>
                 <Field.Label>
                   <LuUserSearch />
@@ -103,7 +120,7 @@ export default function CadastroPlanoAlimeentar() {
               </Field.Root>
               <Field.Root>
                 <Field.Label>
-                  <LuUserSearch />
+                  <HiCalendarDateRange />
                   Data Registro
                 </Field.Label>
                 <Input
@@ -120,17 +137,24 @@ export default function CadastroPlanoAlimeentar() {
               <Text> Refeição</Text>
               <HStack gap={"6"} marginTop={"5"}>
                 <Field.Root>
-                  <Field.Label>Momento da Refeição</Field.Label>
-                  <Input
-                    placeholder="Exemplo: Café da Manhã"
-                    type="Text"
-                    name={`refeicao[0].refeicao_nome`}
-                    value={values.refeicao[0].refeicao_nome}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                  />
+                  <Field.Label> Momento Refeição</Field.Label>
+                  <NativeSelect.Root>
+                    <NativeSelect.Field
+                      placeholder=""
+                      name={`refeicao[0].refeicao_nome`}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                    >
+                      <option value={"cafe_manha"}> Café da Manhã </option>
+                      <option value={"lache_manha"}> Lanche da Manhã </option>
+                      <option value={"almoco"}> Almoço </option>
+                      <option value={"lache_tade"}> Lanche da Tarde </option>
+                      <option value={"janta"}> Janta </option>
+                      <option value={"ceia"}> Ceia </option>
+                    </NativeSelect.Field>
+                    <NativeSelect.Indicator />
+                  </NativeSelect.Root>
                 </Field.Root>
-
                 <Field.Root>
                   <Field.Label>Horario da Refeição</Field.Label>
                   <Input

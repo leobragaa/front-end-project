@@ -1,5 +1,5 @@
 "use client";
-import { dadosClinicosCadastro } from "@/actions/dadosclinicos";
+import { dadosClinicosCadastro } from "@/src/actions/dadosclinicos";
 import {
   Button,
   Card,
