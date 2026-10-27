@@ -1,11 +1,11 @@
 "use server";
-import { getPaciente } from "@/src/actions/paciente";
+// import { getPaciente } from "@/src/actions/paciente";
 import { Card, Grid, GridItem } from "@chakra-ui/react";
 
 export default async function DahsboardPage() {
-  const pacientes = await getPaciente(1);
+  // const pacientes = await getPaciente(1);
 
-  const totalByPacientes = pacientes.length;
+  // const totalByPacientes = pacientes.length;
   return (
     <Grid
       templateColumns={"repeat(12, 1fr)"}
@@ -38,7 +38,7 @@ export default async function DahsboardPage() {
       >
         <Card.Root height={"56"} width={"56"} borderRadius={"xl"}>
           <Card.Header> NOVOS PACIENTES</Card.Header>
-          <Card.Body>{totalByPacientes}</Card.Body>
+          {/* <Card.Body>{totalByPacientes}</Card.Body> */}
         </Card.Root>
       </GridItem>
 
@@ -51,7 +51,7 @@ export default async function DahsboardPage() {
       >
         <Card.Root height={"56"} width={"56"} borderRadius={"xl"}>
           <Card.Header>PLANOS ALIMETARES</Card.Header>
-          <Card.Body>{totalByPacientes}</Card.Body>
+          {/* <Card.Body>{totalByPacientes}</Card.Body> */}
         </Card.Root>
       </GridItem>
       <GridItem
@@ -63,7 +63,7 @@ export default async function DahsboardPage() {
       >
         <Card.Root height={"56"} width={"56"} borderRadius={"xl"}>
           <Card.Header>CONSULTAS HOJE</Card.Header>
-          <Card.Body>{totalByPacientes}</Card.Body>
+          {/* <Card.Body>{totalByPacientes}</Card.Body> */}
         </Card.Root>
       </GridItem>
       <GridItem
@@ -75,7 +75,7 @@ export default async function DahsboardPage() {
       >
         <Card.Root height={"56"} width={"56"} borderRadius={"xl"}>
           <Card.Header>PLANOS ALIMETARES</Card.Header>
-          <Card.Body>{totalByPacientes}</Card.Body>
+          {/* <Card.Body>{totalByPacientes}</Card.Body> */}
         </Card.Root>
       </GridItem>
       <GridItem
