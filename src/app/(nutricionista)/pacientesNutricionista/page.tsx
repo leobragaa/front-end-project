@@ -1,11 +1,12 @@
 "use server";
-import {} from "@/actions/cadastro";
-import { getPaciente } from "@/actions/paciente";
-import { Box, Button, Grid, GridItem, Table } from "@chakra-ui/react";
+import {} from "@/src/actions/cadastro";
+import { Button, Card, Grid, GridItem, Table } from "@chakra-ui/react";
 import Link from "next/link";
 
 export default async function PacientePage() {
-  const pacientes = await getPaciente(1);
+  // const pacientes = await getPaciente(1);
+
+  // const totalByPacientes = pacientes.length;
 
   return (
     <Grid
@@ -15,7 +16,6 @@ export default async function PacientePage() {
       height={"100vh"}
       gap={"5"}
       margin={"5"}
-      border={"1px solid"}
     >
       <GridItem colSpan={[12, 12, 2, 12]}>
         <Link href={"/pacienteCadastro"}>
@@ -23,43 +23,36 @@ export default async function PacientePage() {
         </Link>
       </GridItem>
 
-      <GridItem
-        colSpan={[12, 12, 2, 2]}
-        height={"40"}
-        width={"48"}
-        border={"1px solid"}
-      >
-        <Box>Total Pacientes</Box>
+      <GridItem colSpan={[12, 12, 2, 2]} height={"40"} width={"48"}>
+        <Card.Root height={"40"} width={"48"} borderRadius={"xl"}>
+          <Card.Header> TOTAL PACIENTES</Card.Header>
+          {/* <Card.Body>{totalByPacientes}</Card.Body> */}
+        </Card.Root>
       </GridItem>
 
-      <GridItem
-        colSpan={[12, 12, 2, 2]}
-        height={"40"}
-        width={"48"}
-        border={"1px solid"}
-      >
-        <Box>Pacientes Ativos</Box>
-      </GridItem>
-      <GridItem
-        colSpan={[12, 12, 2, 2]}
-        height={"40"}
-        width={"48"}
-        border={"1px solid"}
-      >
-        <Box>Em Acompanhamento</Box>
+      <GridItem colSpan={[12, 12, 2, 2]} height={"40"} width={"48"}>
+        <Card.Root height={"40"} width={"48"} borderRadius={"xl"}>
+          <Card.Header> TOTAL PACIENTES</Card.Header>
+          {/* <Card.Body>{totalByPacientes}</Card.Body> */}
+        </Card.Root>
       </GridItem>
 
-      <GridItem
-        colSpan={[12, 12, 2, 2]}
-        height={"40"}
-        width={"48"}
-        border={"1px solid"}
-      >
-        <Box>Novos Pacientes</Box>
+      <GridItem colSpan={[12, 12, 2, 2]} height={"40"} width={"48"}>
+        <Card.Root height={"40"} width={"48"} borderRadius={"xl"}>
+          <Card.Header> EM ACOMPANHAMENTO</Card.Header>
+          {/* <Card.Body>{totalByPacientes}</Card.Body> */}
+        </Card.Root>
+      </GridItem>
+
+      <GridItem colSpan={[12, 12, 2, 2]} height={"40"} width={"48"}>
+        <Card.Root height={"40"} width={"48"} borderRadius={"xl"}>
+          <Card.Header> NOVOS PACIENTES</Card.Header>
+          {/* <Card.Body>{totalByPacientes}</Card.Body> */}
+        </Card.Root>
       </GridItem>
 
       <GridItem colSpan={[12, 12, 10, 10]} width={"100"} height={"100vh"}>
-        <Table.ScrollArea>
+        <Table.ScrollArea border={"1px solid"}>
           <Table.Root>
             <Table.Header>
               <Table.Row>
@@ -72,7 +65,7 @@ export default async function PacientePage() {
                 <Table.ColumnHeader>Ações</Table.ColumnHeader>
               </Table.Row>
             </Table.Header>
-            <Table.Body>
+            {/* <Table.Body>
               {pacientes.map((paciente) => (
                 <Table.Row key={paciente?.id}>
                   <Table.Cell> {paciente?.nome}</Table.Cell>
@@ -87,7 +80,7 @@ export default async function PacientePage() {
                   <Table.Cell> {paciente?.cpf}</Table.Cell>
                 </Table.Row>
               ))}
-            </Table.Body>
+            </Table.Body> */}
           </Table.Root>
         </Table.ScrollArea>
       </GridItem>
