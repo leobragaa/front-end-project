@@ -2,7 +2,7 @@ import api from "./api";
 import { Refeicao } from "./refeicao";
 
 export interface CriarPlanoAlimentar {
-  paciente_id: number;
+  paciente_id: string;
   data_plano: string;
   refeicao?: Refeicao[];
 }
@@ -18,7 +18,7 @@ export async function registerPlanoAlimentar(
 ): Promise<PlanoAlimentar> {
   console.log("Dentro do Plano Alimentar");
 
-  const resposta = await api.post("/plano-alimentar", {
+  const resposta = await api.post("/PLANOALIMENTAR", {
     ...planoalimentar,
   });
 

@@ -1,7 +1,6 @@
 import api from "./api";
 
 interface Usuario {
-  id: number;
   nome: string;
   email: string;
   senha: string;
@@ -11,7 +10,7 @@ interface Usuario {
 
 export async function cadastroUsuario(usuario: Usuario): Promise<Usuario> {
   console.log("dentro do envio", usuario);
-  const resposta = await api.post("/usuario", {
+  const resposta = await api.post("/USUARIO", {
     ...usuario,
     tipousuario: "nutricionista",
   });

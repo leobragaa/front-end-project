@@ -21,7 +21,7 @@ export async function registerAlimento(
 ): Promise<Alimento> {
   console.log("Dentro do Registro de Alimento");
 
-  const resposta = await api.post("/alimento", { ...alimento });
+  const resposta = await api.post("/ALIMENTO", { ...alimento });
 
   return resposta.data;
 }

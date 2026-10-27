@@ -3,15 +3,15 @@ import api from "./api";
 export interface CriarRefeicao {
   refeicao_nome: string;
   horario_refeicao: string;
-  ordem_refeicao: number;
-  plano_alimentar_id: number;
+  ordem_refeicao: string;
+  plano_alimentar_id: string;
 }
 export interface Refeicao {
-  id: number;
+  id: string;
   refeicao_nome: string;
   horario_refeicao: Date;
-  ordem_refeicao: number;
-  plano_alimentar_id: number;
+  ordem_refeicao: string;
+  plano_alimentar_id: string;
 }
 
 export async function registerRefeicao(
@@ -19,7 +19,7 @@ export async function registerRefeicao(
 ): Promise<Refeicao> {
   console.log("Dentro do Registro de Refeicao");
 
-  const resposta = await api.post("/refeicao", {
+  const resposta = await api.post("/REFEICAO", {
     ...refeicao,
     tipousuario: "paciente",
   });

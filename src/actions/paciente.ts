@@ -1,7 +1,6 @@
 import api from "./api";
 
 interface Paciente {
-  id: number;
   nome: string;
   email: string;
   senha: string;
@@ -18,7 +17,7 @@ interface Paciente {
 
 export async function pacienteCadastro(paciente: Paciente): Promise<Paciente> {
   console.log("dentro do envio", paciente);
-  const resposta = await api.post("/paciente", {
+  const resposta = await api.post("/PACIENTE", {
     ...paciente,
     tipousuario: "paciente",
   });

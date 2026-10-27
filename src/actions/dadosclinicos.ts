@@ -8,14 +8,14 @@ interface DadosClinicos {
   hidratacao: string;
   dataregistro: string;
   alergia: string;
-  //   paciente_id: number;
+  paciente_id?: string;
 }
 
 export async function dadosClinicosCadastro(
   dadosClinicos: DadosClinicos,
 ): Promise<DadosClinicos> {
   console.log("dentro do envio", dadosClinicos);
-  const resposta = await api.post("/paciente", {
+  const resposta = await api.post("/PACIENTE", {
     ...dadosClinicos,
   });
 
@@ -25,7 +25,7 @@ export async function dadosClinicosCadastro(
 }
 
 export async function getDadosClinicos(
-  id: number,
+  id: string,
 ): Promise<Array<DadosClinicos | undefined>> {
   const resposta = await api.get(`dadosclinicos`, {
     params: { id },
