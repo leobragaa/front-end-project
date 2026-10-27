@@ -27,12 +27,12 @@ export async function pacienteCadastro(paciente: Paciente): Promise<Paciente> {
 
   return resposta.data;
 }
-export async function getPaciente(
-  id_nutricionista: number,
-): Promise<Paciente[]> {
-  const resposta = await api.get("/paciente/nutricionista", {
-    params: { id_nutricionista },
-  });
+// export async function getPaciente(
+//   id_nutricionista: number,
+// ): Promise<Paciente[]> {
+//   const resposta = await api.get("/paciente/nutricionista", {
+//     params: { id_nutricionista },
+//   });
 
-  return resposta.data;
-}
+//   return resposta.data;
+// }
