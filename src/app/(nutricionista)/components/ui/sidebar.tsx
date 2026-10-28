@@ -15,7 +15,7 @@ import Link from "next/link";
 import { BiLogOut, BiMessageDetail } from "react-icons/bi";
 import { BsPerson } from "react-icons/bs";
 import { FaHome } from "react-icons/fa";
-import { LuPencilRuler } from "react-icons/lu";
+import { MdCalendarToday } from "react-icons/md";
 import { PiForkKnifeFill } from "react-icons/pi";
 
 export default async function SideBar() {
@@ -48,18 +48,18 @@ export default async function SideBar() {
           </Link>
         </Box>
         <Box>
-          <Link href={"/dadosClinicosCadastro"}>
+          <Link href={"/pacientesNutricionista"}>
             <Button variant={"ghost"} w="100%" justifyContent={"flex-start"}>
-              <LuPencilRuler />
-              Dados Clínicos
+              <BsPerson />
+              Pacientes
             </Button>
           </Link>
         </Box>
         <Box>
           <Link href={"/pacientesNutricionista"}>
             <Button variant={"ghost"} w="100%" justifyContent={"flex-start"}>
-              <BsPerson />
-              Pacientes
+              <MdCalendarToday />
+              Agendas
             </Button>
           </Link>
         </Box>

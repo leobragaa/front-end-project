@@ -13,6 +13,7 @@ interface Paciente {
   endereco: string;
   cep: string;
   tipousuario: string;
+  nutricionista_id?: string;
 }
 
 export async function pacienteCadastro(paciente: Paciente): Promise<Paciente> {
@@ -20,6 +21,7 @@ export async function pacienteCadastro(paciente: Paciente): Promise<Paciente> {
   const resposta = await api.post("/PACIENTE", {
     ...paciente,
     tipousuario: "paciente",
+    nutricionista_id: "189bf503-2b82-4f61-946a-930c34a8dfb5",
   });
 
   console.log("Cadastro de Paciente Concluido:", resposta.data);

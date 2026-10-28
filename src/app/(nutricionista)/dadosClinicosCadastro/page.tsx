@@ -6,10 +6,13 @@ import {
   Field,
   HStack,
   Input,
+  Link,
   NativeSelect,
+  Text,
 } from "@chakra-ui/react";
 import { Formik } from "formik";
 import { FaRegSave } from "react-icons/fa";
+import { FaArrowLeftLong } from "react-icons/fa6";
 
 export default function DadosClinicosCadastro() {
   return (
@@ -22,6 +25,7 @@ export default function DadosClinicosCadastro() {
         hidratacao: "",
         dataregistro: "",
         alergia: "",
+        paciente_id: "",
       }}
       onSubmit={async (values, { setSubmitting }) => {
         try {
@@ -36,10 +40,27 @@ export default function DadosClinicosCadastro() {
       {({ values, handleChange, handleBlur, handleSubmit, isSubmitting }) => (
         <form onSubmit={handleSubmit}>
           <Card.Root border={"1px solid"} margin={"5"}>
+            <Link href="/pacientesNutricionista">
+              <Button variant={"ghost"}>
+                {" "}
+                <FaArrowLeftLong /> <Text>Voltar</Text>
+              </Button>
+            </Link>
             <Card.Header>
               <Card.Title> Dados Clinicos</Card.Title>
             </Card.Header>
             <Card.Body gap={"5"}>
+              <Field.Root>
+                <Field.Label>Paciente</Field.Label>
+                <Input
+                  placeholder="Informe o Paciente"
+                  type="text"
+                  name="paciente_id"
+                  value={values.paciente_id}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                />
+              </Field.Root>
               <Field.Root>
                 <Field.Label>Data da Consulta</Field.Label>
                 <Input
@@ -79,7 +100,7 @@ export default function DadosClinicosCadastro() {
                 <Field.Label>Alergia</Field.Label>
                 <Input
                   placeholder="Informe as alergias do Paciente"
-                  type="Text"
+                  type="text"
                   name="alergia"
                   value={values.alergia}
                   onChange={handleChange}
@@ -91,8 +112,9 @@ export default function DadosClinicosCadastro() {
                   <Field.Label> Objetivo Pessoal</Field.Label>
                   <NativeSelect.Root>
                     <NativeSelect.Field
-                      placeholder=""
+                      placeholder="Informe o Objetivo do Paciente"
                       name="objetivopessoal"
+                      value={values.objetivopessoal}
                       onChange={handleChange}
                       onBlur={handleBlur}
                     >
@@ -110,8 +132,9 @@ export default function DadosClinicosCadastro() {
                   <Field.Label> Atividade Física </Field.Label>
                   <NativeSelect.Root>
                     <NativeSelect.Field
-                      placeholder=""
-                      name="atvfisica"
+                      placeholder="Selecione o Nivel de Atividade"
+                      name="atvFisica"
+                      value={values.atvFisica}
                       onChange={handleChange}
                       onBlur={handleBlur}
                     >
@@ -127,7 +150,8 @@ export default function DadosClinicosCadastro() {
                   <Field.Label> Hidratação </Field.Label>
                   <NativeSelect.Root>
                     <NativeSelect.Field
-                      placeholder=""
+                      placeholder="Informe o nivel de Hidratação"
+                      name="hidratacao"
                       value={values.hidratacao}
                       onChange={handleChange}
                       onBlur={handleBlur}

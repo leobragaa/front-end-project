@@ -4,7 +4,7 @@ export interface ItemRefeicao {
   alimento_id: string;
   refeicao_id: string;
   unidade_item: string;
-  quantidade_item: string;
+  quantidade_item: number;
 }
 
 export async function registerItemRefeicao(

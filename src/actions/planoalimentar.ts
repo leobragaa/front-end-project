@@ -7,8 +7,8 @@ export interface CriarPlanoAlimentar {
   refeicao?: Refeicao[];
 }
 export interface PlanoAlimentar {
-  id: number;
-  paciente_id: number;
+  id: string;
+  paciente_id: string;
   data_plano: Date;
   refeicao?: Refeicao[];
 }

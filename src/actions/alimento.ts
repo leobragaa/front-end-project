@@ -8,7 +8,7 @@ export interface CriarAlimento {
   carboidrato_alimento: number;
 }
 export interface Alimento {
-  id: number;
+  id: string;
   alimento_nome: string;
   descricao_alimento: string;
   calorias_alimento: number;

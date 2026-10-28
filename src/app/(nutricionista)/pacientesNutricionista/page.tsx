@@ -1,7 +1,8 @@
 "use server";
 import {} from "@/src/actions/cadastro";
-import { Button, Card, Grid, GridItem, Table } from "@chakra-ui/react";
+import { Button, Card, Grid, GridItem, Table, Text } from "@chakra-ui/react";
 import Link from "next/link";
+import { FaArrowLeftLong } from "react-icons/fa6";
 
 export default async function PacientePage() {
   // const pacientes = await getPaciente(1);
@@ -19,15 +20,11 @@ export default async function PacientePage() {
     >
       <GridItem colSpan={[12, 12, 2, 12]}>
         <Link href={"/pacienteCadastro"}>
-          <Button>Cadastrar Paciente</Button>
+          <Button>Novo Paciente</Button>
         </Link>
-      </GridItem>
-
-      <GridItem colSpan={[12, 12, 2, 2]} height={"40"} width={"48"}>
-        <Card.Root height={"40"} width={"48"} borderRadius={"xl"}>
-          <Card.Header> TOTAL PACIENTES</Card.Header>
-          {/* <Card.Body>{totalByPacientes}</Card.Body> */}
-        </Card.Root>
+        <Link href={"/dadosClinicosCadastro"}>
+          <Button>Cadastrar Dado Clinico</Button>
+        </Link>
       </GridItem>
 
       <GridItem colSpan={[12, 12, 2, 2]} height={"40"} width={"48"}>

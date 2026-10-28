@@ -15,7 +15,7 @@ export async function dadosClinicosCadastro(
   dadosClinicos: DadosClinicos,
 ): Promise<DadosClinicos> {
   console.log("dentro do envio", dadosClinicos);
-  const resposta = await api.post("/PACIENTE", {
+  const resposta = await api.post("/DADOCLINICO", {
     ...dadosClinicos,
   });
 
@@ -27,7 +27,7 @@ export async function dadosClinicosCadastro(
 export async function getDadosClinicos(
   id: string,
 ): Promise<Array<DadosClinicos | undefined>> {
-  const resposta = await api.get(`dadosclinicos`, {
+  const resposta = await api.get(`DADOSCLINICOS`, {
     params: { id },
   });
 
