@@ -1,16 +1,16 @@
-import api from "./api";
+import api from "../config/api";
 
 export interface CriarRefeicao {
   refeicao_nome: string;
   horario_refeicao: string;
-  ordem_refeicao: string;
+  ordem_refeicao: number;
   plano_alimentar_id: string;
 }
 export interface Refeicao {
   id: string;
   refeicao_nome: string;
   horario_refeicao: Date;
-  ordem_refeicao: string;
+  ordem_refeicao: number;
   plano_alimentar_id: string;
 }
 

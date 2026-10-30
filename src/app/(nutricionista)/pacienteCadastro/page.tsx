@@ -53,12 +53,7 @@ export default function CadastroPaciente() {
             height={"100vh"}
             width={"100vw"}
           >
-            <GridItem
-              colSpan={[12, 12, 12, 12]}
-              width={"100vw"}
-              height={"100vh"}
-              margin={"5"}
-            >
+            <GridItem colSpan={[12, 12, 12, 12]} height={"100vh"} margin={"5"}>
               <Card.Root justifyContent={"center"} width={"70%"}>
                 <Link href="/pacientesNutricionista">
                   <Button variant={"ghost"}>

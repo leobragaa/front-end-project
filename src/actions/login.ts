@@ -1,4 +1,4 @@
-import api from "./api";
+import api from "../config/api";
 
 interface UsuarioInterface {
   nome: string;
@@ -12,9 +12,16 @@ export async function realizarLogin(
   tipousuario: string,
 ): Promise<UsuarioInterface> {
   console.log(email, senha, tipousuario);
-  const resposta = await api.post("/auth/login", { email, senha, tipousuario });
-
-  console.log("Login realizado:", resposta.data);
-
-  return resposta.data;
+  try {
+    const resposta = await api.post("/auth/login", {
+      email,
+      senha,
+      tipousuario,
+    });
+    console.log("Login realizado:", resposta.data);
+    return resposta.data;
+  } catch (erro: any) {
+    console.error("DETALHES:", erro.response?.data ?? erro.message);
+    throw erro;
+  }
 }

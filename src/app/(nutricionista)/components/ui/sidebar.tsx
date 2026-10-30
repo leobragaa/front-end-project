@@ -1,5 +1,5 @@
 "use server";
-// import { getUsuario } from "@/src/actions/cadastro";
+import { getUsuario } from "@/src/actions/cadastro";
 import {
   Avatar,
   Box,
@@ -15,11 +15,10 @@ import Link from "next/link";
 import { BiLogOut, BiMessageDetail } from "react-icons/bi";
 import { BsPerson } from "react-icons/bs";
 import { FaHome } from "react-icons/fa";
-import { LuPencilRuler } from "react-icons/lu";
 import { PiForkKnifeFill } from "react-icons/pi";
 
 export default async function SideBar() {
-  // const nutricionista = await getUsuario(1);
+  const nutricionista = await getUsuario("");
   return (
     <Flex as={"nav"} direction={"column"} h={"100vh"}>
       <Heading>
@@ -48,14 +47,6 @@ export default async function SideBar() {
           </Link>
         </Box>
         <Box>
-          <Link href={"/dadosClinicosCadastro"}>
-            <Button variant={"ghost"} w="100%" justifyContent={"flex-start"}>
-              <LuPencilRuler />
-              Dados Clínicos
-            </Button>
-          </Link>
-        </Box>
-        <Box>
           <Link href={"/pacientesNutricionista"}>
             <Button variant={"ghost"} w="100%" justifyContent={"flex-start"}>
               <BsPerson />
@@ -72,7 +63,7 @@ export default async function SideBar() {
           </Link>
         </Box>
       </Stack>
-      {/* <Stack gap={"8"}>
+      <Stack gap={"8"}>
         {nutricionista && (
           <HStack gap={"4"} key={nutricionista.email}>
             <Avatar.Root>
@@ -87,7 +78,7 @@ export default async function SideBar() {
             </Stack>
           </HStack>
         )}
-      </Stack> */}
+      </Stack>
       <Box>
         <Link href={"/"}>
           <Button variant={"ghost"} w="100%" alignItems={"center"}>

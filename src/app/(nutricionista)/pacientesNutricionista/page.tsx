@@ -1,12 +1,13 @@
 "use server";
 import {} from "@/src/actions/cadastro";
+import { getPaciente } from "@/src/actions/paciente";
 import { Button, Card, Grid, GridItem, Table } from "@chakra-ui/react";
 import Link from "next/link";
 
 export default async function PacientePage() {
-  // const pacientes = await getPaciente(1);
+  const pacientes = await getPaciente("189bf503-2b82-4f61-946a-930c34a8dfb5");
 
-  // const totalByPacientes = pacientes.length;
+  const totalByPacientes = pacientes.length;
 
   return (
     <Grid
@@ -19,21 +20,17 @@ export default async function PacientePage() {
     >
       <GridItem colSpan={[12, 12, 2, 12]}>
         <Link href={"/pacienteCadastro"}>
-          <Button>Cadastrar Paciente</Button>
+          <Button>Novo Paciente</Button>
+        </Link>
+        <Link href={"/dadosClinicosCadastro"}>
+          <Button>Cadastrar Dado Clinico</Button>
         </Link>
       </GridItem>
 
       <GridItem colSpan={[12, 12, 2, 2]} height={"40"} width={"48"}>
         <Card.Root height={"40"} width={"48"} borderRadius={"xl"}>
           <Card.Header> TOTAL PACIENTES</Card.Header>
-          {/* <Card.Body>{totalByPacientes}</Card.Body> */}
-        </Card.Root>
-      </GridItem>
-
-      <GridItem colSpan={[12, 12, 2, 2]} height={"40"} width={"48"}>
-        <Card.Root height={"40"} width={"48"} borderRadius={"xl"}>
-          <Card.Header> TOTAL PACIENTES</Card.Header>
-          {/* <Card.Body>{totalByPacientes}</Card.Body> */}
+          <Card.Body>{totalByPacientes}</Card.Body>
         </Card.Root>
       </GridItem>
 
@@ -65,7 +62,7 @@ export default async function PacientePage() {
                 <Table.ColumnHeader>Ações</Table.ColumnHeader>
               </Table.Row>
             </Table.Header>
-            {/* <Table.Body>
+            <Table.Body>
               {pacientes.map((paciente) => (
                 <Table.Row key={paciente?.id}>
                   <Table.Cell> {paciente?.nome}</Table.Cell>
@@ -75,12 +72,11 @@ export default async function PacientePage() {
                     {paciente?.telefone} {paciente?.email}
                   </Table.Cell>
                   <Table.Cell> {paciente?.sexo}</Table.Cell>
-                  <Table.Cell> </Table.Cell>
-                  <Table.Cell> {paciente?.cpf}</Table.Cell>
+                  <Table.Cell> {paciente?.endereco}</Table.Cell>
                   <Table.Cell> {paciente?.cpf}</Table.Cell>
                 </Table.Row>
               ))}
-            </Table.Body> */}
+            </Table.Body>
           </Table.Root>
         </Table.ScrollArea>
       </GridItem>

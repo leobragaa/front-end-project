@@ -26,10 +26,10 @@ export default function CadastroPlanoAlimeentar() {
     <Formik
       initialValues={{
         data_plano: "",
-        paciente_id: 0,
+        paciente_id: "",
         refeicao: [
           {
-            planoalimentar_id: 0,
+            planoalimentar_id: "",
             refeicao_nome: "",
             ordem_refeicao: 0,
             horario_refeicao: "",
@@ -37,8 +37,8 @@ export default function CadastroPlanoAlimeentar() {
               {
                 quantidade_item: 0,
                 unidade_item: "g",
-                alimento_id: 0,
-                refeicao_id: 0,
+                alimento_id: "",
+                refeicao_id: "",
                 alimento: {
                   alimento_nome: "",
                   descricao_alimento: "",
@@ -93,7 +93,12 @@ export default function CadastroPlanoAlimeentar() {
     >
       {({ values, handleChange, handleBlur, handleSubmit, isSubmitting }) => (
         <form onSubmit={handleSubmit}>
-          <Card.Root border={"1px solid"} margin={"5"}>
+          <Card.Root
+            border={"1px solid"}
+            width={"80%"}
+            justifyContent={"center"}
+            margin={"5"}
+          >
             <Link href="/planoAlimentar">
               <Button variant={"ghost"}>
                 {" "}
@@ -113,7 +118,7 @@ export default function CadastroPlanoAlimeentar() {
                   placeholder="Selecione o Paciente"
                   name="paciente_id"
                   value={values.paciente_id}
-                  type="number"
+                  type="text"
                   onChange={handleChange}
                   onBlur={handleBlur}
                 />
@@ -189,7 +194,6 @@ export default function CadastroPlanoAlimeentar() {
                 <Field.Root>
                   <Field.Label>Quantidade do Alimentos:</Field.Label>
                   <Input
-                    placeholder="Exemplo: 2"
                     type="number"
                     name={`refeicao[0].itemrefeicao[0].quantidade_item`}
                     value={values.refeicao[0].itemrefeicao[0].quantidade_item}
@@ -200,7 +204,6 @@ export default function CadastroPlanoAlimeentar() {
                 <Field.Root>
                   <Field.Label>Quantidade a Unitaria:</Field.Label>
                   <Input
-                    placeholder={"Exemplo: unidade, colher, g, ml"}
                     type={"text"}
                     name={`refeicao[0].itemrefeicao[0].unidade_item`}
                     value={values.refeicao[0].itemrefeicao[0].unidade_item}

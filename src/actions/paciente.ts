@@ -1,6 +1,7 @@
-import api from "./api";
+import api from "../config/api";
 
 interface Paciente {
+  id?: string;
   nome: string;
   email: string;
   senha: string;
@@ -13,6 +14,7 @@ interface Paciente {
   endereco: string;
   cep: string;
   tipousuario: string;
+  nutricionista_id?: string;
 }
 
 export async function pacienteCadastro(paciente: Paciente): Promise<Paciente> {
@@ -26,12 +28,12 @@ export async function pacienteCadastro(paciente: Paciente): Promise<Paciente> {
 
   return resposta.data;
 }
-// export async function getPaciente(
-//   id_nutricionista: number,
-// ): Promise<Paciente[]> {
-//   const resposta = await api.get("/paciente/nutricionista", {
-//     params: { id_nutricionista },
-//   });
+export async function getPaciente(
+  id_nutricionista: string,
+): Promise<Paciente[]> {
+  const resposta = await api.get("/PACIENTE/nutricionista", {
+    params: { id_nutricionista },
+  });
 
-//   return resposta.data;
-// }
+  return resposta.data;
+}
