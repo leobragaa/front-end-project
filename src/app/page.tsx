@@ -29,8 +29,8 @@ export default function HomePage() {
   const router = useRouter();
   const tiposDeUsuarioList = createListCollection({
     items: [
-      { label: "Nutricionista", value: "Nutricionista" },
-      { label: "Paciente", value: "Paciente" },
+      { label: "Nutricionista", value: "nutricionista" },
+      { label: "Paciente", value: "paciente" },
     ],
   });
   return (
@@ -46,7 +46,7 @@ export default function HomePage() {
           );
           console.log("Dentro do form", usuario);
 
-          if (values.tipousuario === "Paciente") {
+          if (values.tipousuario === "paciente") {
             router.push("/dashboardPaciente");
           } else {
             router.push("/dashboard");

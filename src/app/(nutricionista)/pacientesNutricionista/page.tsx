@@ -1,13 +1,35 @@
-"use server";
+"use client";
 import {} from "@/src/actions/cadastro";
-import { Button, Card, Grid, GridItem, Table, Text } from "@chakra-ui/react";
+import { getPaciente, Paciente } from "@/src/actions/paciente";
+import { Button, Card, Grid, GridItem, Table } from "@chakra-ui/react";
 import Link from "next/link";
-import { FaArrowLeftLong } from "react-icons/fa6";
+import { useEffect, useState } from "react";
 
-export default async function PacientePage() {
-  // const pacientes = await getPaciente(1);
+export default function PacientePage() {
+  const [paciente, setPacientes] = useState<Paciente[]>([]);
 
-  // const totalByPacientes = pacientes.length;
+  useEffect(() => {
+    async function carregarPacientes() {
+      try {
+        const usuarioSalvo = localStorage.getItem("usuario");
+
+        if (!usuarioSalvo) {
+          console.error("Usuário não encontrado");
+          return;
+        }
+
+        const usuario = JSON.parse(usuarioSalvo);
+
+        const dados = await getPaciente(usuario.id);
+
+        setPacientes(dados);
+      } catch (error) {
+        console.error("Erro ao carregar pacientes:", error);
+      }
+    }
+
+    carregarPacientes();
+  }, []);
 
   return (
     <Grid
@@ -62,14 +84,14 @@ export default async function PacientePage() {
                 <Table.ColumnHeader>Ações</Table.ColumnHeader>
               </Table.Row>
             </Table.Header>
-            {/* <Table.Body>
-              {pacientes.map((paciente) => (
+            <Table.Body>
+              {paciente.map((paciente) => (
                 <Table.Row key={paciente?.id}>
-                  <Table.Cell> {paciente?.nome}</Table.Cell>
+                  <Table.Cell> {paciente?.usuario_id.nome}</Table.Cell>
                   <Table.Cell> {paciente?.datanascimento}</Table.Cell>
                   <Table.Cell>
                     {" "}
-                    {paciente?.telefone} {paciente?.email}
+                    {paciente?.usuario_id.telefone} {paciente?.usuario_id.email}
                   </Table.Cell>
                   <Table.Cell> {paciente?.sexo}</Table.Cell>
                   <Table.Cell> </Table.Cell>
@@ -77,7 +99,7 @@ export default async function PacientePage() {
                   <Table.Cell> {paciente?.cpf}</Table.Cell>
                 </Table.Row>
               ))}
-            </Table.Body> */}
+            </Table.Body>
           </Table.Root>
         </Table.ScrollArea>
       </GridItem>

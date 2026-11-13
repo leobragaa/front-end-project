@@ -1,5 +1,6 @@
-"use server";
-// import { getUsuario } from "@/src/actions/cadastro";
+"use client";
+
+import { UsuarioInterface } from "@/src/actions/login";
 import {
   Avatar,
   Box,
@@ -12,14 +13,34 @@ import {
   Text,
 } from "@chakra-ui/react";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 import { BiLogOut, BiMessageDetail } from "react-icons/bi";
 import { BsPerson } from "react-icons/bs";
 import { FaHome } from "react-icons/fa";
 import { MdCalendarToday } from "react-icons/md";
 import { PiForkKnifeFill } from "react-icons/pi";
 
-export default async function SideBar() {
-  // const nutricionista = await getUsuario(1);
+export default function SideBar() {
+  const [nutricionista, setNutricionista] = useState<UsuarioInterface | null>(
+    null,
+  );
+
+  useEffect(() => {
+    const usuarioSalvo = localStorage.getItem("usuario");
+
+    if (!usuarioSalvo) return;
+
+    try {
+      const usuario: UsuarioInterface = JSON.parse(usuarioSalvo);
+
+      if (usuario.tipousuario === "nutricionista") {
+        setNutricionista(usuario);
+      }
+    } catch (error) {
+      console.error("Erro ao recuperar usuário:", error);
+    }
+  }, []);
+
   return (
     <Flex as={"nav"} direction={"column"} h={"100vh"}>
       <Heading>
@@ -72,7 +93,7 @@ export default async function SideBar() {
           </Link>
         </Box>
       </Stack>
-      {/* <Stack gap={"8"}>
+      <Stack gap={"8"}>
         {nutricionista && (
           <HStack gap={"4"} key={nutricionista.email}>
             <Avatar.Root>
@@ -87,7 +108,7 @@ export default async function SideBar() {
             </Stack>
           </HStack>
         )}
-      </Stack> */}
+      </Stack>
       <Box>
         <Link href={"/"}>
           <Button variant={"ghost"} w="100%" alignItems={"center"}>

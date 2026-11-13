@@ -1,6 +1,8 @@
 import api from "./api";
+import { Usuario } from "./cadastro";
 
-interface Paciente {
+export interface Paciente {
+  id: string;
   nome: string;
   email: string;
   senha: string;
@@ -13,6 +15,7 @@ interface Paciente {
   endereco: string;
   cep: string;
   tipousuario: string;
+  usuario_id: Usuario;
   nutricionista_id?: string;
 }
 
@@ -21,19 +24,18 @@ export async function pacienteCadastro(paciente: Paciente): Promise<Paciente> {
   const resposta = await api.post("/PACIENTE", {
     ...paciente,
     tipousuario: "paciente",
-    nutricionista_id: "189bf503-2b82-4f61-946a-930c34a8dfb5",
+    nutricionista_id: "",
   });
 
   console.log("Cadastro de Paciente Concluido:", resposta.data);
-
+  console.log(JSON.parse(localStorage.getItem("usuario") || "{}"));
   return resposta.data;
 }
-// export async function getPaciente(
-//   id_nutricionista: number,
-// ): Promise<Paciente[]> {
-//   const resposta = await api.get("/paciente/nutricionista", {
-//     params: { id_nutricionista },
-//   });
-
-//   return resposta.data;
-// }
+export async function getPaciente(
+  id_nutricionista: number,
+): Promise<Paciente[]> {
+  const resposta = await api.get("/PACIENTE/nutricionista", {
+    params: { id_nutricionista },
+  });
+  return resposta.data;
+}
