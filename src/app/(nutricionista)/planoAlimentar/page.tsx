@@ -1,12 +1,77 @@
-"use server";
+"use client";
 import {} from "@/src/actions/cadastro";
+import {
+  getPlanosAlimentar,
+  PlanoAlimentar,
+} from "@/src/actions/planoalimentar";
 import { Button, Card, Grid, GridItem, Table } from "@chakra-ui/react";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 
 export default async function PacientePage() {
-  // const pacientes = await getPaciente(1);
+  const [planos, setPlanos] = useState<PlanoAlimentar[]>([]);
+  const [carregando, setCarregando] = useState(true);
 
-  // const totalByPacientes = pacientes.length;
+  useEffect(() => {
+    async function carregarPlanos() {
+      try {
+        const usuarioSalvo = localStorage.getItem("usuario");
+
+        if (!usuarioSalvo) {
+          console.error("Usuário não encontrado no localStorage");
+          return;
+        }
+
+        const usuario = JSON.parse(usuarioSalvo);
+
+        if (!usuario.id) {
+          console.error("ID do nutricionista não encontrado");
+          return;
+        }
+
+        const resposta = await getPlanosAlimentar(usuario.id);
+
+        setPlanos(resposta);
+      } catch (error) {
+        console.error("Erro ao buscar planos alimentares:", error);
+      } finally {
+        setCarregando(false);
+      }
+    }
+
+    carregarPlanos();
+  }, []);
+  const totalByPacientes = planos.length;
+
+  const hoje = new Date();
+
+  const planosUltimos30Dias = planos.filter((plano) => {
+    const dataPlano = new Date(plano.data_plano);
+
+    const diferenca = hoje.getTime() - dataPlano.getTime();
+
+    const dias = diferenca / (1000 * 60 * 60 * 24);
+
+    return dias >= 0 && dias <= 30;
+  });
+
+  function calcularIdade(dataNascimento: string) {
+    const nascimento = new Date(dataNascimento);
+    const hoje = new Date();
+
+    let idade = hoje.getFullYear() - nascimento.getFullYear();
+
+    const aindaNaoFezAniversario =
+      hoje.getMonth() < nascimento.getMonth() ||
+      (hoje.getMonth() === nascimento.getMonth() &&
+        hoje.getDate() < nascimento.getDate());
+
+    if (aindaNaoFezAniversario) {
+      idade--;
+    }
+
+    return idade;
+  }
 
   return (
     <Grid
@@ -33,43 +98,70 @@ export default async function PacientePage() {
       <GridItem colSpan={[12, 12, 2, 2]} height={"40"} width={"48"}>
         <Card.Root height={"40"} width={"48"} borderRadius={"xl"}>
           <Card.Header>PLANOS ATIVOS</Card.Header>
-          {/* <Card.Body>{totalByPacientes}</Card.Body> */}
+          <Card.Body>{totalByPacientes}</Card.Body>
         </Card.Root>
       </GridItem>
 
       <GridItem colSpan={[12, 12, 2, 2]} height={"40"} width={"48"}>
         <Card.Root height={"40"} width={"48"} borderRadius={"xl"}>
           <Card.Header> ULTIMOS 30 DIAS</Card.Header>
-          {/* <Card.Body>{totalByPacientes}</Card.Body> */}
+          <Card.Body>{planosUltimos30Dias.length}</Card.Body>
         </Card.Root>
       </GridItem>
 
-      <GridItem colSpan={[12, 12, 10, 10]} width={"100"} height={"100vh"}>
-        <Table.ScrollArea border={"1px solid"}>
+      <GridItem colSpan={12} width="100%">
+        <Table.ScrollArea border="1px solid">
           <Table.Root>
             <Table.Header>
               <Table.Row>
                 <Table.ColumnHeader>Paciente</Table.ColumnHeader>
                 <Table.ColumnHeader>Idade</Table.ColumnHeader>
-                <Table.ColumnHeader>Data Plano</Table.ColumnHeader>
-                <Table.ColumnHeader>Status</Table.ColumnHeader>
+                <Table.ColumnHeader>Data do Plano</Table.ColumnHeader>
+                <Table.ColumnHeader>Refeições</Table.ColumnHeader>
                 <Table.ColumnHeader>Ações</Table.ColumnHeader>
               </Table.Row>
             </Table.Header>
-            {/* <Table.Body>
-              {pacientes.map((paciente) => (
-                <Table.Row key={paciente?.id}>
-                  <Table.Cell> {paciente?.nome}</Table.Cell>
-                  <Table.Cell> {paciente?.datanascimento}</Table.Cell>
-                  <Table.Cell> {paciente?.datanascimento} </Table.Cell>
-                  <Table.Cell> {paciente?.sexo}</Table.Cell>
-                  <Table.Cell>
-                    {" "}
-                    <IconButton> Ver Plano </IconButton>
+
+            <Table.Body>
+              {carregando ? (
+                <Table.Row>
+                  <Table.Cell colSpan={5}>Carregando planos...</Table.Cell>
+                </Table.Row>
+              ) : planos.length === 0 ? (
+                <Table.Row>
+                  <Table.Cell colSpan={5}>
+                    Nenhum plano alimentar encontrado.
                   </Table.Cell>
                 </Table.Row>
-              ))}
-            </Table.Body> */}
+              ) : (
+                planos.map((plano) => (
+                  <Table.Row key={plano.id}>
+                    <Table.Cell>
+                      {plano.paciente_id?.usuario_id?.nome}
+                    </Table.Cell>
+
+                    <Table.Cell>
+                      {plano.paciente_id?.datanascimento
+                        ? calcularIdade(plano.paciente_id.datanascimento) +
+                          " anos"
+                        : "Não informado"}
+                    </Table.Cell>
+
+                    <Table.Cell>
+                      {new Date(plano.data_plano).toLocaleDateString("pt-BR")}
+                    </Table.Cell>
+
+                    <Table.Cell>{plano.refeicao?.length ?? 0}</Table.Cell>
+
+                    <Table.Cell>
+                      <Button size="sm" variant="outline">
+                        Ver Plano
+                      </Button>
+                    </Table.Cell>
+                  </Table.Row>
+                ))
+              )}
+            </Table.Body>
           </Table.Root>
         </Table.ScrollArea>
       </GridItem>

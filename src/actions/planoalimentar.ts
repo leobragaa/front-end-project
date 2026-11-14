@@ -8,8 +8,20 @@ export interface CriarPlanoAlimentar {
 }
 export interface PlanoAlimentar {
   id: string;
-  paciente_id: string;
-  data_plano: Date;
+  data_plano: string;
+
+  paciente_id: {
+    id: string;
+    datanascimento: string;
+    sexo: string;
+
+    usuario_id: {
+      nome: string;
+      email: string;
+      telefone: string;
+    };
+  };
+
   refeicao?: Refeicao[];
 }
 
@@ -20,6 +32,18 @@ export async function registerPlanoAlimentar(
 
   const resposta = await api.post("/PLANOALIMENTAR", {
     ...planoalimentar,
+  });
+
+  return resposta.data;
+}
+
+export async function getPlanosAlimentar(
+  id_nutricionista: string,
+): Promise<PlanoAlimentar[]> {
+  const resposta = await api.get("/PLANOALIMENTAR/nutricionista", {
+    params: {
+      id_nutricionista,
+    },
   });
 
   return resposta.data;
