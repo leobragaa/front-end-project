@@ -4,7 +4,6 @@ import { Refeicao } from "./refeicao";
 export interface CriarPlanoAlimentar {
   paciente_id: string;
   nutricionista_id: string;
-  data_plano: string;
   refeicao?: Refeicao[];
 }
 export interface PlanoAlimentar {
@@ -46,6 +45,17 @@ export async function getPlanosAlimentar(
       id_nutricionista,
     },
   });
+
+  return resposta.data;
+}
+
+export async function excluirPlanoAlimentar(id: string) {
+  const resposta = await api.delete(`/PLANOALIMENTAR/${id}`);
+  return resposta.data;
+}
+
+export async function getPlanoCompleto(id: string): Promise<PlanoAlimentar> {
+  const resposta = await api.get(`/PLANOALIMENTAR/${id}/completo`);
 
   return resposta.data;
 }

@@ -68,10 +68,10 @@ export default function CadastroPlanoAlimeentar() {
 
     carregarPacientes();
   }, []);
+
   return (
     <Formik
       initialValues={{
-        data_plano: "",
         paciente_id: "",
         refeicao: [novaRefeicao(1)],
       }}
@@ -90,7 +90,6 @@ export default function CadastroPlanoAlimeentar() {
           }
 
           const planoAlimentar = await registerPlanoAlimentar({
-            data_plano: values.data_plano,
             paciente_id: values.paciente_id,
             nutricionista_id: usuario.id,
           });
@@ -163,20 +162,6 @@ export default function CadastroPlanoAlimeentar() {
                   ))}
                 </NativeSelect.Field>
               </NativeSelect.Root>
-              <Field.Root>
-                <Field.Label>
-                  <HiCalendarDateRange />
-                  Data Registro
-                </Field.Label>
-                <Input
-                  placeholder="dd/mm/aaaa"
-                  name="data_plano"
-                  value={values.data_plano}
-                  type="date"
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                />
-              </Field.Root>
             </Card.Body>
 
             <FieldArray name="refeicao">

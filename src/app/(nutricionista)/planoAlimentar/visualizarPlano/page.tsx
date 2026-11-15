@@ -1,6 +1,7 @@
 "use client";
 
 import {
+  excluirPlanoAlimentar,
   getPlanosAlimentar,
   PlanoAlimentar,
 } from "@/src/actions/planoalimentar";
@@ -24,6 +25,29 @@ export default function VisualizarPlano() {
     useState<PlanoAlimentar | null>(null);
   const [carregando, setCarregando] = useState(true);
   const [erro, setErro] = useState("");
+
+  async function excluirPlano(id: string) {
+    const confirmar = window.confirm(
+      "Tem certeza que deseja excluir este plano alimentar?",
+    );
+
+    if (!confirmar) return;
+
+    try {
+      await excluirPlanoAlimentar(id);
+
+      setPlanos((planosAtuais) =>
+        planosAtuais.filter((plano) => plano.id !== id),
+      );
+
+      setPlanoSelecionado(null);
+
+      alert("Plano alimentar excluído com sucesso!");
+    } catch (error) {
+      console.error("Erro ao excluir plano:", error);
+      alert("Não foi possível excluir o plano alimentar.");
+    }
+  }
 
   useEffect(() => {
     async function carregarPlanos() {
@@ -72,7 +96,6 @@ export default function VisualizarPlano() {
       </Flex>
     );
   }
-
   return (
     <Box p={{ base: 4, md: 8 }} minH="100vh">
       <Flex justify="space-between" align="center" mb={8}>
@@ -83,7 +106,7 @@ export default function VisualizarPlano() {
           </Text>
         </Box>
 
-        <Link href="/pacientesNutricionista">
+        <Link href="/planoAlimentar">
           <Button variant="outline">Voltar</Button>
         </Link>
       </Flex>
@@ -156,8 +179,19 @@ export default function VisualizarPlano() {
                 <Text mt={3}>
                   Data do plano: {formatarData(planoSelecionado.data_plano)}
                 </Text>
-              </Card.Root>
 
+                <Flex justify="flex-end" mt={4} gap={3}>
+                  <Link href={`/editarPlano/${planoSelecionado.id}`}>
+                    <Button colorPalette="blue">Editar Plano</Button>
+                  </Link>
+                  <Button
+                    colorPalette="red"
+                    onClick={() => excluirPlano(planoSelecionado.id)}
+                  >
+                    Excluir Plano
+                  </Button>
+                </Flex>
+              </Card.Root>
               <Heading size="lg">Refeições</Heading>
 
               {planoSelecionado.refeicao
