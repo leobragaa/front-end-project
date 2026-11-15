@@ -21,7 +21,6 @@ import { FaRegSave } from "react-icons/fa";
 import { FaArrowLeftLong } from "react-icons/fa6";
 import { HiCalendarDateRange } from "react-icons/hi2";
 import { IoCloseOutline } from "react-icons/io5";
-import { LuUserSearch } from "react-icons/lu";
 import { TiPlus } from "react-icons/ti";
 
 function novoAlimento() {
@@ -51,24 +50,24 @@ export default function CadastroPlanoAlimeentar() {
   const [pacientes, setPacientes] = useState<Paciente[]>([]);
 
   useEffect(() => {
-  async function carregarPacientes() {
-    try {
-      const usuarioSalvo = localStorage.getItem("usuario");
+    async function carregarPacientes() {
+      try {
+        const usuarioSalvo = localStorage.getItem("usuario");
 
-      if (!usuarioSalvo) return;
+        if (!usuarioSalvo) return;
 
-      const usuario = JSON.parse(usuarioSalvo);
+        const usuario = JSON.parse(usuarioSalvo);
 
-      const resposta = await getPaciente(usuario.id);
+        const resposta = await getPaciente(usuario.id);
 
-      setPacientes(resposta);
-    } catch (error) {
-      console.error("Erro ao carregar pacientes:", error);
+        setPacientes(resposta);
+      } catch (error) {
+        console.error("Erro ao carregar pacientes:", error);
+      }
     }
-  }
 
-  carregarPacientes();
-}, []);
+    carregarPacientes();
+  }, []);
   return (
     <Formik
       initialValues={{
@@ -78,9 +77,22 @@ export default function CadastroPlanoAlimeentar() {
       }}
       onSubmit={async (values, { setSubmitting }) => {
         try {
+          const usuarioSalvo = localStorage.getItem("usuario");
+
+          if (!usuarioSalvo) {
+            throw new Error("Usuário não encontrado. Faça login novamente.");
+          }
+
+          const usuario = JSON.parse(usuarioSalvo);
+
+          if (!usuario.id) {
+            throw new Error("ID do nutricionista não encontrado.");
+          }
+
           const planoAlimentar = await registerPlanoAlimentar({
             data_plano: values.data_plano,
             paciente_id: values.paciente_id,
+            nutricionista_id: usuario.id,
           });
 
           for (const [indice, refeicaoForm] of values.refeicao.entries()) {
@@ -112,8 +124,9 @@ export default function CadastroPlanoAlimeentar() {
           console.log("Plano Alimentar finalizado e cadastrado !");
         } catch (error) {
           console.log("Erro ao Cadastrar Plano Alimentar ", error);
+        } finally {
+          setSubmitting(false);
         }
-        setSubmitting(false);
       }}
     >
       {({ values, handleChange, handleBlur, handleSubmit, isSubmitting }) => (
@@ -142,7 +155,7 @@ export default function CadastroPlanoAlimeentar() {
                   onBlur={handleBlur}
                 >
                   <option value="">Selecione um paciente</option>
-                    
+
                   {pacientes.map((paciente) => (
                     <option key={paciente.id} value={paciente.id}>
                       {paciente.usuario_id.nome}
@@ -165,14 +178,12 @@ export default function CadastroPlanoAlimeentar() {
                 />
               </Field.Root>
             </Card.Body>
-  
-            <FieldArray name="refeicao.${indice}.itemrefeicao">
-             {({ push, remove }) => (
+
+            <FieldArray name="refeicao">
+              {({ push, remove }) => (
                 <Card.Body gap="5">
                   <HStack justify="space-between">
-                    <Text fontWeight="bold">
-                      Refeições
-                    </Text>
+                    <Text fontWeight="bold">Refeições</Text>
 
                     <Button
                       type="button"
@@ -193,9 +204,7 @@ export default function CadastroPlanoAlimeentar() {
                       gap="4"
                     >
                       <HStack justify="space-between">
-                        <Text fontWeight="bold">
-                          Refeição {indice + 1}
-                        </Text>
+                        <Text fontWeight="bold">Refeição {indice + 1}</Text>
 
                         <Button
                           type="button"
@@ -212,9 +221,7 @@ export default function CadastroPlanoAlimeentar() {
 
                       <HStack align="start">
                         <Field.Root required>
-                          <Field.Label>
-                            Momento da Refeição
-                          </Field.Label>
+                          <Field.Label>Momento da Refeição</Field.Label>
 
                           <NativeSelect.Root>
                             <NativeSelect.Field
@@ -223,27 +230,17 @@ export default function CadastroPlanoAlimeentar() {
                               onChange={handleChange}
                               onBlur={handleBlur}
                             >
-                              <option value="">
-                                Selecione
-                              </option>
-                              <option value="cafe_manha">
-                                Café da Manhã
-                              </option>
+                              <option value="">Selecione</option>
+                              <option value="cafe_manha">Café da Manhã</option>
                               <option value="lanche_manha">
                                 Lanche da Manhã
                               </option>
-                              <option value="almoco">
-                                Almoço
-                              </option>
+                              <option value="almoco">Almoço</option>
                               <option value="lanche_tarde">
                                 Lanche da Tarde
                               </option>
-                              <option value="janta">
-                                Janta
-                              </option>
-                              <option value="ceia">
-                                Ceia
-                              </option>
+                              <option value="janta">Janta</option>
+                              <option value="ceia">Ceia</option>
                             </NativeSelect.Field>
 
                             <NativeSelect.Indicator />
@@ -251,9 +248,7 @@ export default function CadastroPlanoAlimeentar() {
                         </Field.Root>
 
                         <Field.Root required>
-                          <Field.Label>
-                            Horário da Refeição
-                          </Field.Label>
+                          <Field.Label>Horário da Refeição</Field.Label>
 
                           <Input
                             type="time"
@@ -264,16 +259,15 @@ export default function CadastroPlanoAlimeentar() {
                           />
                         </Field.Root>
                       </HStack>
-                      
-                      <FieldArray
-                        name={`refeicao.${indice}.itemrefeicao`}
-                      >
-                        {({ push: adicionarAlimento, remove: removerAlimento }) => (
+
+                      <FieldArray name={`refeicao.${indice}.itemrefeicao`}>
+                        {({
+                          push: adicionarAlimento,
+                          remove: removerAlimento,
+                        }) => (
                           <VStack align="stretch" gap="4">
                             <HStack justify="space-between">
-                              <Text fontWeight="semibold">
-                                Alimentos
-                              </Text>
+                              <Text fontWeight="semibold">Alimentos</Text>
 
                               <Button
                                 type="button"
@@ -288,144 +282,128 @@ export default function CadastroPlanoAlimeentar() {
                               </Button>
                             </HStack>
 
-                            {refeicao.itemrefeicao.map(
-                              (item, indiceItem) => (
-                                <Card.Root
-                                  key={indiceItem}
-                                  border="1px solid"
-                                  padding="3"
-                                  gap="3"
-                                >
-                                  <HStack justify="space-between">
-                                    <Text fontWeight="medium">
-                                      Alimento {indiceItem + 1}
-                                    </Text>
+                            {refeicao.itemrefeicao.map((item, indiceItem) => (
+                              <Card.Root
+                                key={indiceItem}
+                                border="1px solid"
+                                padding="3"
+                                gap="3"
+                              >
+                                <HStack justify="space-between">
+                                  <Text fontWeight="medium">
+                                    Alimento {indiceItem + 1}
+                                  </Text>
 
-                                    <Button
-                                      type="button"
-                                      size="xs"
-                                      colorPalette="red"
-                                      variant="ghost"
-                                      disabled={
-                                        refeicao.itemrefeicao.length === 1
-                                      }
-                                      onClick={() =>
-                                        removerAlimento(indiceItem)
-                                      }
-                                    >
-                                      <IoCloseOutline />
-                                      Remover
-                                    </Button>
-                                  </HStack>
+                                  <Button
+                                    type="button"
+                                    size="xs"
+                                    colorPalette="red"
+                                    variant="ghost"
+                                    disabled={
+                                      refeicao.itemrefeicao.length === 1
+                                    }
+                                    onClick={() => removerAlimento(indiceItem)}
+                                  >
+                                    <IoCloseOutline />
+                                    Remover
+                                  </Button>
+                                </HStack>
+
+                                <Field.Root required>
+                                  <Field.Label>Nome do Alimento</Field.Label>
+
+                                  <Input
+                                    placeholder="Exemplo: Maçã"
+                                    name={`refeicao.${indice}.itemrefeicao.${indiceItem}.alimento.alimento_nome`}
+                                    value={item.alimento.alimento_nome}
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                  />
+                                </Field.Root>
+
+                                <HStack>
+                                  <Field.Root required>
+                                    <Field.Label>Quantidade</Field.Label>
+
+                                    <Input
+                                      type="number"
+                                      min="0"
+                                      name={`refeicao.${indice}.itemrefeicao.${indiceItem}.quantidade_item`}
+                                      value={item.quantidade_item}
+                                      onChange={handleChange}
+                                      onBlur={handleBlur}
+                                    />
+                                  </Field.Root>
 
                                   <Field.Root required>
-                                    <Field.Label>
-                                      Nome do Alimento
-                                    </Field.Label>
+                                    <Field.Label>Unidade</Field.Label>
 
                                     <Input
-                                      placeholder="Exemplo: Maçã"
-                                      name={`refeicao.${indice}.itemrefeicao.${indiceItem}.alimento.alimento_nome`}
-                                      value={item.alimento.alimento_nome}
+                                      placeholder="g, ml, unidade"
+                                      name={`refeicao.${indice}.itemrefeicao.${indiceItem}.unidade_item`}
+                                      value={item.unidade_item}
                                       onChange={handleChange}
                                       onBlur={handleBlur}
                                     />
                                   </Field.Root>
+                                </HStack>
 
-                                  <HStack>
-                                    <Field.Root required>
-                                      <Field.Label>
-                                        Quantidade
-                                      </Field.Label>
+                                <HStack>
+                                  <Field.Root>
+                                    <Field.Label>Calorias (kcal)</Field.Label>
 
-                                      <Input
-                                        type="number"
-                                        min="0"
-                                        name={`refeicao.${indice}.itemrefeicao.${indiceItem}.quantidade_item`}
-                                        value={item.quantidade_item}
-                                        onChange={handleChange}
-                                        onBlur={handleBlur}
-                                      />
-                                    </Field.Root>
-
-                                    <Field.Root required>
-                                      <Field.Label>
-                                        Unidade
-                                      </Field.Label>
-
-                                      <Input
-                                        placeholder="g, ml, unidade"
-                                        name={`refeicao.${indice}.itemrefeicao.${indiceItem}.unidade_item`}
-                                        value={item.unidade_item}
-                                        onChange={handleChange}
-                                        onBlur={handleBlur}
-                                      />
-                                    </Field.Root>
-                                  </HStack>
-
-                                  <HStack>
-                                    <Field.Root>
-                                      <Field.Label>
-                                        Calorias (kcal)
-                                      </Field.Label>
-
-                                      <Input
-                                        type="number"
-                                        min="0"
-                                        name={`refeicao.${indice}.itemrefeicao.${indiceItem}.alimento.calorias_alimento`}
-                                        value={item.alimento.calorias_alimento}
-                                        onChange={handleChange}
-                                        onBlur={handleBlur}
-                                      />
-                                    </Field.Root>
-
-                                    <Field.Root>
-                                      <Field.Label>
-                                        Proteínas (g)
-                                      </Field.Label>
-
-                                      <Input
-                                        type="number"
-                                        min="0"
-                                        name={`refeicao.${indice}.itemrefeicao.${indiceItem}.alimento.proteina_alimento`}
-                                        value={item.alimento.proteina_alimento}
-                                        onChange={handleChange}
-                                        onBlur={handleBlur}
-                                      />
-                                    </Field.Root>
-
-                                    <Field.Root>
-                                      <Field.Label>
-                                        Carboidratos (g)
-                                      </Field.Label>
-
-                                      <Input
-                                        type="number"
-                                        min="0"
-                                        name={`refeicao.${indice}.itemrefeicao.${indiceItem}.alimento.carboidrato_alimento`}
-                                        value={item.alimento.carboidrato_alimento}
-                                        onChange={handleChange}
-                                        onBlur={handleBlur}
-                                      />
-                                    </Field.Root>
-                                  </HStack>
+                                    <Input
+                                      type="number"
+                                      min="0"
+                                      name={`refeicao.${indice}.itemrefeicao.${indiceItem}.alimento.calorias_alimento`}
+                                      value={item.alimento.calorias_alimento}
+                                      onChange={handleChange}
+                                      onBlur={handleBlur}
+                                    />
+                                  </Field.Root>
 
                                   <Field.Root>
-                                    <Field.Label>
-                                      Descrição de Consumo
-                                    </Field.Label>
+                                    <Field.Label>Proteínas (g)</Field.Label>
 
                                     <Input
-                                      placeholder="Descrição do alimento"
-                                      name={`refeicao.${indice}.itemrefeicao.${indiceItem}.alimento.descricao_alimento`}
-                                      value={item.alimento.descricao_alimento}
+                                      type="number"
+                                      min="0"
+                                      name={`refeicao.${indice}.itemrefeicao.${indiceItem}.alimento.proteina_alimento`}
+                                      value={item.alimento.proteina_alimento}
                                       onChange={handleChange}
                                       onBlur={handleBlur}
                                     />
                                   </Field.Root>
-                                </Card.Root>
-                              )
-                            )}
+
+                                  <Field.Root>
+                                    <Field.Label>Carboidratos (g)</Field.Label>
+
+                                    <Input
+                                      type="number"
+                                      min="0"
+                                      name={`refeicao.${indice}.itemrefeicao.${indiceItem}.alimento.carboidrato_alimento`}
+                                      value={item.alimento.carboidrato_alimento}
+                                      onChange={handleChange}
+                                      onBlur={handleBlur}
+                                    />
+                                  </Field.Root>
+                                </HStack>
+
+                                <Field.Root>
+                                  <Field.Label>
+                                    Descrição de Consumo
+                                  </Field.Label>
+
+                                  <Input
+                                    placeholder="Descrição do alimento"
+                                    name={`refeicao.${indice}.itemrefeicao.${indiceItem}.alimento.descricao_alimento`}
+                                    value={item.alimento.descricao_alimento}
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                  />
+                                </Field.Root>
+                              </Card.Root>
+                            ))}
                           </VStack>
                         )}
                       </FieldArray>
@@ -433,7 +411,7 @@ export default function CadastroPlanoAlimeentar() {
                   ))}
                 </Card.Body>
               )}
-            </FieldArray>       
+            </FieldArray>
 
             <Card.Footer>
               <Field.Root alignItems={"flex-start"}>

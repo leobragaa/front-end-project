@@ -13,7 +13,6 @@ import {
   Button,
   Link,
   HStack,
-  Text,
 } from "@chakra-ui/react";
 
 import { Formik } from "formik";
@@ -28,7 +27,7 @@ export default function CadastroPage() {
         email: "",
         senha: "",
         telefone: "",
-        tipousuario: "",
+        tipousuario: "nutricionista",
       }}
       onSubmit={async (values, { setSubmitting }) => {
         try {
@@ -37,6 +36,8 @@ export default function CadastroPage() {
           router.push("/");
         } catch (error) {
           console.log("Erro em Cadastrar", error);
+        } finally {
+          setSubmitting(false);
         }
         setSubmitting(false);
       }}

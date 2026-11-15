@@ -8,7 +8,7 @@ import { Button, Card, Grid, GridItem, Table } from "@chakra-ui/react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
-export default async function PacientePage() {
+export default function PacientePage() {
   const [planos, setPlanos] = useState<PlanoAlimentar[]>([]);
   const [carregando, setCarregando] = useState(true);
 
@@ -154,9 +154,13 @@ export default async function PacientePage() {
                     <Table.Cell>{plano.refeicao?.length ?? 0}</Table.Cell>
 
                     <Table.Cell>
-                      <Button size="sm" variant="outline">
-                        Ver Plano
-                      </Button>
+                      <Link
+                        href={`/planoAlimentar/visualizarPlano?id=${plano.id}`}
+                      >
+                        <Button size="sm" variant="outline">
+                          Ver Plano
+                        </Button>
+                      </Link>
                     </Table.Cell>
                   </Table.Row>
                 ))

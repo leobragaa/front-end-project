@@ -3,13 +3,14 @@ import { Refeicao } from "./refeicao";
 
 export interface CriarPlanoAlimentar {
   paciente_id: string;
+  nutricionista_id: string;
   data_plano: string;
   refeicao?: Refeicao[];
 }
 export interface PlanoAlimentar {
   id: string;
   data_plano: string;
-
+  nutricionista_id: string;
   paciente_id: {
     id: string;
     datanascimento: string;

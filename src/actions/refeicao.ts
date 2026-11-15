@@ -1,4 +1,5 @@
 import api from "./api";
+import { ItemRefeicao } from "./itemrefeicao";
 
 export interface CriarRefeicao {
   refeicao_nome: string;
@@ -12,6 +13,7 @@ export interface Refeicao {
   horario_refeicao: Date;
   ordem_refeicao: number;
   plano_alimentar_id: string;
+  itemrefeicao: ItemRefeicao[];
 }
 
 export async function registerRefeicao(

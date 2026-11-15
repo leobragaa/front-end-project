@@ -1,8 +1,23 @@
 import api from "./api";
 import { Usuario } from "./cadastro";
 
+export interface CadastroPaciente {
+  id?: string;
+  nome: string;
+  email: string;
+  senha: string;
+  sexo: string;
+  telefone: string;
+  datanascimento: string;
+  cpf: string;
+  cidade: string;
+  estado: string;
+  endereco: string;
+  cep: string;
+  tipousuario: string;
+}
 export interface Paciente {
-  id: string;
+  id?: string;
   nome: string;
   email: string;
   senha: string;
@@ -19,7 +34,9 @@ export interface Paciente {
   nutricionista_id?: string;
 }
 
-export async function pacienteCadastro(paciente: Paciente): Promise<Paciente> {
+export async function pacienteCadastro(
+  paciente: CadastroPaciente,
+): Promise<Paciente> {
   console.log("dentro do envio", paciente);
   const resposta = await api.post("/PACIENTE", {
     ...paciente,
