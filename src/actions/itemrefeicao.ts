@@ -25,3 +25,18 @@ export async function registerItemRefeicao(
 
   return resposta.data;
 }
+export async function atualizarItemRefeicao(
+  id: string,
+  dados: {
+    quantidade_item?: number;
+    unidade_item?: string;
+  },
+): Promise<ItemRefeicao> {
+  const resposta = await api.patch(`/ITEMREFEICAO/${id}`, dados);
+  return resposta.data;
+}
+
+export async function excluirItemRefeicao(id: string) {
+  const resposta = await api.delete(`/ITEMREFEICAO/${id}`);
+  return resposta.data;
+}
